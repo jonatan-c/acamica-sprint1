@@ -23,7 +23,6 @@ router.post(
   agregarProducto
 ); // [F]
 //******************************************** [G]
-
 router.put(
   "/users/:idUserAdmin/productos/:idProducto",
   midValidarExistenciaDeUsuarioAdmin,
@@ -31,8 +30,8 @@ router.put(
   midValidarRolAdmin,
   actualizarProducto
 ); // solo por admin [G]
-//******************************************** [H]
 
+//******************************************** [H]
 router.delete(
   "/users/:idUserAdmin/productos/:idProducto",
   midValidarExistenciaDeUsuarioAdmin,

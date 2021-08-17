@@ -1,7 +1,7 @@
 const usersDB = require("../models/Users");
 
 const usersCtrl = {};
-///**1111********* [A] y [L]
+///*********************************** [A] y [L]
 usersCtrl.crearUsuario = (req, res, next) => {
   const newUser = {};
   newUser.id = parseInt(3);
@@ -13,10 +13,11 @@ usersCtrl.crearUsuario = (req, res, next) => {
   usersDB.push(newUser);
   res.json({ mensaje: "Usuario creado correctamente" });
 };
-//****aaa****aaa************ [B]
+//************************************ [B]
 usersCtrl.iniciarSesion = (req, res, next) => {
   res.json({ mensaje: `Hola ${req.body.nombre} , gracias por logear!!!` });
 };
+//******************** SIN USO ACTUALMENTE
 
 usersCtrl.eliminarUsuario = (req, res, next) => {
   const obtenerUsuarioID = req.params.idUser; // obtengo el id del cliente que busca un producto
@@ -30,6 +31,7 @@ usersCtrl.eliminarUsuario = (req, res, next) => {
     res.json(usersDB);
   }
 };
+//******************** SIN USO ACTUALMENTE
 
 usersCtrl.actualizarUsuario = (req, res, next) => {
   const obtenerUsuarioID = req.params.idUser; // obtengo el id del cliente que busca un producto

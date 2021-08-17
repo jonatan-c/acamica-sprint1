@@ -1,7 +1,7 @@
 const pedidosDB = require("../models/Pedidos");
 
 const pedidosCtrl = {};
-////////////////// [C]
+//************************************ [C]
 pedidosCtrl.realizarPedido = (req, res, next) => {
   const newPedido = {};
   newPedido.idPedido = parseInt(25);

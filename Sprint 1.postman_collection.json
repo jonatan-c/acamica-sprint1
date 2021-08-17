@@ -1334,6 +1334,368 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "[H] /users/:idUserAdmin/productos/:idProducto Copy",
+			"item": [
+				{
+					"name": "/users/:idUserAdmin/productos/:idProducto(C)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "milanesa",
+									"type": "text"
+								},
+								{
+									"key": "precio",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/productos/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"productos",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:idUserAdmin/productos/:idProducto(I)ProNoEncont",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "milanesa",
+									"type": "text"
+								},
+								{
+									"key": "precio",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/productos/9999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"productos",
+								"9999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:idUserAdmin/productos/:idProducto(I)NoID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "milanesa",
+									"type": "text"
+								},
+								{
+									"key": "precio",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/999/productos/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"999",
+								"productos",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:idUserAdmin/productos/:idProducto(I)NoAdmin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "milanesa",
+									"type": "text"
+								},
+								{
+									"key": "precio",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/2/productos/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"2",
+								"productos",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "[N] /users/:idUserAdmin/mediosDePago",
+			"item": [
+				{
+					"name": "/users/:idUserAdmin/mediosDePago(C)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "cheque",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/mediosDePago",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"mediosDePago"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:idUserAdmin/mediosDePago(I) MP existente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "efectivo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/mediosDePago",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"mediosDePago"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:idUserAdmin/mediosDePago(I)noAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "cheque",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/2/mediosDePago",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"2",
+								"mediosDePago"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "[O] /users/:idUserAdmin/mediosDePago/:idmediosDePago",
+			"item": [
+				{
+					"name": "/users/:idUserAdmin/mediosDePago(C)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "efect",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/mediosDePago/31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"mediosDePago",
+								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:idUserAdmin/mediosDePago(I) MP existente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "efectivo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/mediosDePago/3999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"mediosDePago",
+								"3999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:idUserAdmin/mediosDePago(I)noAdmin",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "cheque",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/2/mediosDePago/31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"2",
+								"mediosDePago",
+								"31"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

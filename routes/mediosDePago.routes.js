@@ -1,17 +1,37 @@
 const { Router } = require("express");
 const router = Router();
 
-const validar_login = require("../middlewares/users/islogin");
-const validar_ID = require("../middlewares/pedidos/midPedidos");
+const midValidarExistenciaDeUsuarioAdmin = require("../middlewares/pedidos/midValidarExistenciaDeUsuarioAdmin");
+const midValidarEstadoAdmin = require("../middlewares/pedidos/midValidarEstadoAdmin");
+const midValidarRolAdmin = require("../middlewares/pedidos/midValidarRolAdmin");
+
+const midValidarMP = require("../middlewares/metodoDePago/midValidarMP");
+const midValidarMPporID = require("../middlewares/metodoDePago/midValidarMPporID");
+
 const {
-  agregarMedioDePagoAPedido,
+  agregarMedioDePago,
+  editarMedioDePago,
 } = require("../controllers/mediosDePago.controller");
 
+//************************************* [N]
 router.post(
-  "/users/:idUser/pedidos/:idPedido/medioDePago/:idMedioDePago",
-  //   validar_login,
-  validar_ID,
-  agregarMedioDePagoAPedido
-); // [M]
+  "/users/:idUserAdmin/mediosDePago",
+  midValidarExistenciaDeUsuarioAdmin,
+  midValidarEstadoAdmin,
+  midValidarRolAdmin,
+  midValidarMP,
+  agregarMedioDePago
+); // [N]
+
+//************************************* [O]
+router.put(
+  "/users/:idUserAdmin/mediosDePago/:idMedioDePago",
+  midValidarExistenciaDeUsuarioAdmin,
+  midValidarEstadoAdmin,
+  midValidarRolAdmin,
+  midValidarMP,
+  midValidarMPporID,
+  editarMedioDePago
+); // [N]
 
 module.exports = router;

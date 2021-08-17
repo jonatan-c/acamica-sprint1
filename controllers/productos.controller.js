@@ -2,10 +2,11 @@ const productosDB = require("../models/Productos");
 
 const productosCtrl = {};
 
+//*************************************** [SIN USAR]
 productosCtrl.obtenerProductos = (req, res, next) => {
   res.json({ productosDB });
 };
-
+//******************************************** [F]
 productosCtrl.agregarProducto = (req, res, next) => {
   const newProducto = {};
   newProducto.idProducto = parseInt(16);
@@ -27,20 +28,21 @@ productosCtrl.obtenerProducto = (req, res, next) => {
   }
 };
 
+//******************************************** [H]
 productosCtrl.eliminarProducto = (req, res, next) => {
-  const obtenerProductoID = req.params.idProducto; // obtengo el id del cliente que busca un producto
+  const obtenerProductoID = req.params.idProducto;
   const productoIndex = productosDB.findIndex(
     (prod) => prod.idProducto === parseInt(obtenerProductoID)
   ); //0 vs -1
-  // console.log(productoIndex);
   if (productoIndex === -1) {
-    res.status(404).json({ mensaje: "No encontrado" });
+    res.status(404).json({ mensaje: "Producto no encontrado" });
   } else {
     productosDB.splice(productosDB, 1);
-    res.json(productosDB);
+    res.json({ mensaje: "Producto Eliminado Correctamente" });
   }
 };
 
+//******************************************** [G]
 productosCtrl.actualizarProducto = (req, res, next) => {
   const obtenerProductoID = req.params.idProducto; // obtengo el id del cliente que busca un producto
   let existeProducto = productosDB.find(
