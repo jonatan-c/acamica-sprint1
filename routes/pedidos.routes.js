@@ -3,16 +3,18 @@ const router = Router();
 
 const midValidarExistenciaDeUsuario = require("../middlewares/users/midValidarExistenciaDeUsuario");
 const midValidarEstadoOnLine = require("../middlewares/users/midValidarEstadoOnLine");
-const validar_ID = require("../middlewares/pedidos/midPedidos");
 const midValidarExistenciaDeUsuarioAdmin = require("../middlewares/pedidos/midValidarExistenciaDeUsuarioAdmin");
 const midValidarEstadoAdmin = require("../middlewares/pedidos/midValidarEstadoAdmin");
 const midValidarRolAdmin = require("../middlewares/pedidos/midValidarRolAdmin");
+const midValidarEstadoPedido = require("../middlewares/pedidos/midValidarEstadoPedido");
+const midValidarEstadoDePedidoPosibles = require("../middlewares/pedidos/midValidarEstadoDePedidoPosibles");
 
 const {
   realizarPedido,
   obtenerPedidosIdUser,
   obtenerPedidosIdUserAdmin,
   editarPedidosIdUserAdmin,
+  editarPedidosIdUser,
 } = require("../controllers/pedidos.controller");
 ///********************************* [C] //////////////// me genera dudas ; hacer luego
 // router.post("/users/:idUser/pedidos", midValidarLogin, realizarPedido); // [C]
@@ -37,7 +39,17 @@ router.put(
   midValidarExistenciaDeUsuarioAdmin,
   midValidarEstadoAdmin,
   midValidarRolAdmin,
+  midValidarEstadoDePedidoPosibles,
   editarPedidosIdUserAdmin
 ); // [E_2]
 
+////////////////////////////////////// [S y T] ***************************************
+router.put(
+  "/users/:idUser/pedidos/:idPedido/productos/:idProducto",
+  midValidarExistenciaDeUsuario,
+  midValidarEstadoOnLine,
+  midValidarEstadoPedido,
+  editarPedidosIdUser
+); // [S]
+///productos/:idProducto
 module.exports = router;

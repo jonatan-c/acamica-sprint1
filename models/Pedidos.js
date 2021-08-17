@@ -10,7 +10,7 @@ const PedidosDB = [
         precio: 50,
       },
     ],
-    estado: "pendiente",
+    estado: "Pendiente",
   },
   {
     idPedido: 23,
