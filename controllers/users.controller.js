@@ -1,7 +1,7 @@
 const usersDB = require("../models/Users");
 
 const usersCtrl = {};
-///********** [A] y [L]
+///**1111********* [A] y [L]
 usersCtrl.crearUsuario = (req, res, next) => {
   const newUser = {};
   newUser.id = parseInt(3);
