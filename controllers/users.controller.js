@@ -13,7 +13,7 @@ usersCtrl.crearUsuario = (req, res, next) => {
   usersDB.push(newUser);
   res.json({ mensaje: "Usuario creado correctamente" });
 };
-//******************** [B]
+//****aaa**************** [B]
 usersCtrl.iniciarSesion = (req, res, next) => {
   res.json({ mensaje: `Hola ${req.body.nombre} , gracias por logear!!!` });
 };
