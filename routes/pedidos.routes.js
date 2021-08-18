@@ -8,16 +8,43 @@ const midValidarEstadoAdmin = require("../middlewares/pedidos/midValidarEstadoAd
 const midValidarRolAdmin = require("../middlewares/pedidos/midValidarRolAdmin");
 const midValidarEstadoPedido = require("../middlewares/pedidos/midValidarEstadoPedido");
 const midValidarEstadoDePedidoPosibles = require("../middlewares/pedidos/midValidarEstadoDePedidoPosibles");
+const midValidarRolUser = require("../middlewares/pedidos/midValidarRolUser");
+const midValidarPedidoExista = require("../middlewares/pedidos/midValidarPedidoExista");
+const midValidarEcistenciadeIDPEDIDO = require("../middlewares/pedidos/midValidarEcistenciadeIDPEDIDO");
 
 const {
-  realizarPedido,
+  obtenerProductos,
   obtenerPedidosIdUser,
   obtenerPedidosIdUserAdmin,
   editarPedidosIdUserAdmin,
   editarPedidosIdUser,
+  realizarPedido,
+  editarCantidadPedido,
 } = require("../controllers/pedidos.controller");
-///********************************* [C] //////////////// me genera dudas ; hacer luego
-// router.post("/users/:idUser/pedidos", midValidarLogin, realizarPedido); // [C]
+///********************************* [C_P1] ////////////////
+router.get(
+  "/users/:idUser/productos",
+  midValidarEstadoOnLine,
+  midValidarExistenciaDeUsuario,
+  obtenerProductos
+);
+///********************************* [C_P2] ////////////////
+router.post(
+  "/users/:idUser/productos",
+  midValidarEstadoOnLine,
+  midValidarExistenciaDeUsuario,
+  midValidarRolUser,
+  realizarPedido
+);
+
+///********************* [Poder cambiar la cantidad de un producto seleccionado] ////////////////
+// router.put(
+//   "/users/:idUser/pedidos/:idPedido",
+//   midValidarEstadoOnLine,
+//   midValidarExistenciaDeUsuario,
+//   midValidarRolUser,
+//   editarCantidadPedido
+// );
 //********************************** [D]********************************************
 router.get(
   "/users/:idUser/pedidos",
@@ -45,10 +72,12 @@ router.put(
 
 ////////////////////////////////////// [S y T] ***************************************
 router.put(
-  "/users/:idUser/pedidos/:idPedido/productos/:idProducto",
+  "/users/:idUser/pedido/:idPedido/productos/:idProducto",
   midValidarExistenciaDeUsuario,
   midValidarEstadoOnLine,
+  midValidarEcistenciadeIDPEDIDO,
   midValidarEstadoPedido,
+  midValidarPedidoExista,
   editarPedidosIdUser
 ); // [S]
 ///productos/:idProducto

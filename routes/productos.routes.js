@@ -16,7 +16,7 @@ const {
 router.get("/productos", obtenerProductos);
 //******************************************** [F]
 router.post(
-  "/users/:idUserAdmin/productos",
+  "/users/:idUserAdmin/productosAdmin",
   midValidarExistenciaDeUsuarioAdmin,
   midValidarEstadoAdmin,
   midValidarRolAdmin,

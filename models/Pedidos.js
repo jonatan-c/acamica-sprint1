@@ -3,11 +3,17 @@ const PedidosDB = [
     idPedido: 21,
     idUser: 1,
     pedido: [
-      { idProducto: 11, nombre: "Hamburguesa Doble", precio: 1500 },
+      {
+        idProducto: 11,
+        nombre: "Hamburguesa Doble",
+        precio: 1500,
+        cantidad: 2,
+      },
       {
         idProducto: 13,
         nombre: "Coca",
         precio: 50,
+        cantidad: 1,
       },
     ],
     estado: "Pendiente",
@@ -20,6 +26,7 @@ const PedidosDB = [
         idProducto: 13,
         nombre: "Coca",
         precio: 50,
+        cantidad: 3,
       },
     ],
     estado: "aceptado",

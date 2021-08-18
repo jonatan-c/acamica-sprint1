@@ -882,9 +882,44 @@
 				{
 					"name": "New Request",
 					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"request": {
 						"method": "POST",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"productos"
+							]
+						}
 					},
 					"response": []
 				}

@@ -54,5 +54,26 @@ router.get(
   midValidarEstadoAdmin,
   midValidarRolAdmin,
   obtenerMediosDePago
-); // [N]
+);
+
+//************************************* [M]
+//validar que existe idUser, que esta online y que es usuario
+//valudar que existe idPedido, y que esta en modo Pendiente
+// mostrar MP base de datos
+// hacer post con id del metodo de pago y colocar en pedidoDB
+router.post(
+  "/users/:idUser/pedido/:idPedido/mediosDePago"
+  // agregarmediodePagoAlPedido
+);
+
+// ********************************* [R]
+//validar que existe idUser, que esta online y que es usuario
+//valudar que existe idPedido, y que esta en modo Pendiente
+// mostrar MP base de datos
+// hacer post con id del metodo de pago y colocar en pedidoDB
+router.post(
+  "/users/:idUser/pedido/:idPedido/direccion"
+  // agregarmediodePagoAlPedido
+);
+
 module.exports = router;

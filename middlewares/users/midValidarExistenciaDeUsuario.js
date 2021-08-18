@@ -2,6 +2,7 @@ const usersDB = require("../../models/Users");
 
 function midValidarExistenciaDeUsuario(req, res, next) {
   const estado = usersDB.find((user) => user.idUser == req.params.idUser);
+  // console.log(estado);
   if (estado) {
     next();
   } else {
