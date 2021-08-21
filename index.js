@@ -1,23 +1,44 @@
 const express = require("express");
 const app = express();
+const port = 6001;
 const productosRoutes = require("./routes/productos.routes");
 const usersRoutes = require("./routes/users.routes");
 const pedidosRoutes = require("./routes/pedidos.routes");
 const metodosDePagoRoutes = require("./routes/mediosDePago.routes");
 
+// ********************* SWAGGER ************
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "Acamica- Restaurant API",
+      version: "1.0.0",
+    },
+  },
+  apis: [
+    "./routes/users.routes.js",
+    "./routes/productos.routes.js",
+    "./routes/pedidos.routes.js",
+  ],
+};
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 //routes
 //********************************************* PRODUCTOS **********************
-app.use("/restuarant", productosRoutes);
+app.use("/restaurant", productosRoutes);
 //********************************************* USERS **********************
-app.use("/restuarant", usersRoutes);
+app.use("/restaurant", usersRoutes);
 //********************************************* PEDIDOS **********************
-app.use("/restuarant", pedidosRoutes);
+app.use("/restaurant", pedidosRoutes);
 //********************************************* METODOS DE PAGO **********************
 app.use("/restuarant", metodosDePagoRoutes);
 
-app.listen(6000, () => {
-  console.log("Servidor en 6000");
+app.listen(port, () => {
+  console.log(`Server listening on port http://localhost:${port}`);
 });

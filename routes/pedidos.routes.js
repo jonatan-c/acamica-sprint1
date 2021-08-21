@@ -22,13 +22,58 @@ const {
   editarCantidadPedido,
 } = require("../controllers/pedidos.controller");
 ///********************************* [C_P1] ////////////////
+/**
+ * @swagger
+ * /restaurant/users/{idUser}/productos:
+ *  get:
+ *    tags:
+ *      - Pedidos
+ *    description: Permite al admin agregar nuevos productos
+ *    parameters:
+ *    - name: idUser
+ *      description: Id del usuario
+ *      in: path
+ *      required: true
+ *      type: integer
+ *    responses:
+ *      200:
+ *        description: Success
+ */
+
 router.get(
   "/users/:idUser/productos",
-  midValidarEstadoOnLine,
   midValidarExistenciaDeUsuario,
+  midValidarEstadoOnLine,
   obtenerProductos
 );
 ///********************************* [C_P2] ////////////////
+/**
+ * @swagger
+ * /restaurant/users/{idUser}/productos:
+ *  post:
+ *    tags:
+ *      - Pedidos
+ *    description: Permite al usuario registrado y logeado ver los productos,nombre y precio
+ *    parameters:
+ *    - name: idUser
+ *      description: Id del usuario
+ *      in: path
+ *      required: true
+ *      type: integer
+ *    - name: idProducto
+ *      description: idProducto del producto que quiere agregar al pedido
+ *      in: formData
+ *      required: false
+ *      type: number
+ *    - name: cantidad
+ *      description: cantidad del producto requerido
+ *      in: formData
+ *      required: true
+ *      type: number
+ *    responses:
+ *      200:
+ *        description: Success
+ */
 router.post(
   "/users/:idUser/productos",
   midValidarEstadoOnLine,

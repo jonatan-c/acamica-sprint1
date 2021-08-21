@@ -1,7 +1,7 @@
 const usersDB = [
   {
     idUser: 1,
-    rol: "user",
+    rol: "admin",
     nombre: "jonatan",
     password: "claros",
     email: "jonatan@gmail.com",

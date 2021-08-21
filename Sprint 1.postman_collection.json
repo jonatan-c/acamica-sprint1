@@ -902,10 +902,25 @@
 					"response": []
 				},
 				{
-					"name": "New Request Copy",
+					"name": "C(C)",
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idProducto",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "cantidad",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "http://localhost:6000/restuarant/users/1/productos",
 							"protocol": "http",
@@ -918,6 +933,46 @@
 								"users",
 								"1",
 								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar Cantidad pedido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idProducto",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "cantidad",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6000/restuarant/users/1/pedido/21/productos/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"restuarant",
+								"users",
+								"1",
+								"pedido",
+								"21",
+								"productos",
+								"11"
 							]
 						}
 					},
@@ -1195,7 +1250,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:6000/restuarant/users/1/productos",
+							"raw": "http://localhost:6000/restuarant/users/1/productosAdmin",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1205,7 +1260,7 @@
 								"restuarant",
 								"users",
 								"1",
-								"productos"
+								"productosAdmin"
 							]
 						}
 					},
