@@ -18,6 +18,7 @@ const {
  *  post:
  *    tags:
  *      - Crear cuenta y logear
+ *    summary: Permite crear cuenta
  *    description: crea un usuario
  *    parameters:
  *    - name: idUser
@@ -53,6 +54,7 @@ router.post("/users/crear-cuenta", midValidarEmail, crearUsuario); // [A] y [L]
  *  post:
  *    tags:
  *      - Crear cuenta y logear
+ *    summary: Permite iniciar sesion
  *    description: inicia sesion en la aplicacion
  *    parameters:
  *    - name: id
@@ -81,8 +83,5 @@ router.post("/users/crear-cuenta", midValidarEmail, crearUsuario); // [A] y [L]
  */
 
 router.post("/users/login", midValidarLogin, iniciarSesion); // [B]
-//******************** SIN USO ACTUALMENTE
-// router.delete("/:idUser", eliminarUsuario);
-// router.put("/:idUser", actualizarUsuario);
 
 module.exports = router;

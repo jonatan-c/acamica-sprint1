@@ -18,7 +18,8 @@ const {
  *  get:
  *    tags:
  *      - Productos
- *    description: lista todos los productos
+ *    summary: Lista de todos los productos, para cualquier persona
+ *    description: Lista de todos los productos para personas sin cuenta creada
  *    responses:
  *      200:
  *        description: Success
@@ -32,6 +33,7 @@ router.get("/productos", obtenerProductos);
  *  post:
  *    tags:
  *      - Productos
+ *    summary: El admin puede agregar productos a la base de datos de productos
  *    description: Permite al admin agregar nuevos productos
  *    parameters:
  *    - name: idUserAdmin
@@ -69,7 +71,8 @@ router.post(
  *  put:
  *    tags:
  *      - Productos
- *    description: actualiza un producto si es admin
+ *    summary: El admin puede editar productos de la base de datos de productos por id
+ *    description: Permite al admin editar un producto por id
  *    parameters:
  *    - name: idUserAdmin
  *      description: Id del userAdmin
@@ -111,7 +114,8 @@ router.put(
  *  delete:
  *    tags:
  *      - Productos
- *    description: elimina un prducto si es admin
+ *    summary: El admin puede eliminar productos de la base de datos de productos por id
+ *    description: Permite eliminar un producto
  *    parameters:
  *    - name: idUserAdmin
  *      description: Id del vehiculo

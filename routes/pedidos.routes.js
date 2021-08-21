@@ -28,6 +28,7 @@ const {
  *  get:
  *    tags:
  *      - Pedidos USER
+ *    summary: Lista de productos para agregar a pedidos, requiere iniciar sesion
  *    description: Permite al usuario  registrado y logeado ver TODOS LOS productos
  *    parameters:
  *    - name: idUser
@@ -53,6 +54,7 @@ router.get(
  *  post:
  *    tags:
  *      - Pedidos USER
+ *    summary: Lista de productos para enviar como pedidos, requiere iniciar sesion
  *    description: Permite al usuario registrado y logeado agregar productos a su pedido
  *    parameters:
  *    - name: idUser
@@ -99,6 +101,7 @@ router.post(
  *  get:
  *    tags:
  *      - Pedidos USER
+ *    summary: Lista de pedidos de un usuario
  *    description: Permite al usuario ver todos sus pedidos, puede tener varios
  *    parameters:
  *    - name: idUser
@@ -124,6 +127,7 @@ router.get(
  *  put:
  *    tags:
  *      - Pedidos USER
+ *    summary: Editar pedido por id, permite cambiar la cantidad
  *    description: Edita un producto del pedido de un usuario logeado.
  *    parameters:
  *    - name: idUser
@@ -170,6 +174,7 @@ module.exports = router;
  *  get:
  *    tags:
  *      - Pedidos Admin
+ *    summary: Permite al admin ver TODOS los pedidos
  *    description: Permite al admin agregar nuevos productos
  *    parameters:
  *    - name: idUserAdmin
@@ -195,6 +200,7 @@ router.get(
  *  put:
  *    tags:
  *      - Pedidos Admin
+ *    summary: Permite ver UN pedido por el id
  *    description: actualiza un producto si es admin
  *    parameters:
  *    - name: idUserAdmin

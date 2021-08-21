@@ -22,6 +22,7 @@ const {
  *  get:
  *    tags:
  *      - Medios de pago Admin
+ *    summary: Permite al admin ver TODOS los medios de pago registrados en la base de datos
  *    description: Permite al admin ver todos los medios de pago
  *    parameters:
  *    - name: idUserAdmin
@@ -48,6 +49,7 @@ router.get(
  *  post:
  *    tags:
  *      - Medios de pago Admin
+ *    summary: Permite al admin agregar nuevos metodos de pagos, solo requiere el nombre.
  *    description: Permite al admin agregar un medio de pago
  *    parameters:
  *    - name: idUserAdmin
@@ -80,6 +82,7 @@ router.post(
  *  put:
  *    tags:
  *      - Medios de pago Admin
+ *    summary: Permite al admin modificar un medio de pago por el id
  *    description: Edita un medio de pago
  *    parameters:
  *    - name: idUserAdmin
@@ -118,6 +121,7 @@ router.put(
  *  delete:
  *    tags:
  *      - Medios de pago Admin
+ *    summary: Permite al admin eliminar un medio de pago por id
  *    description: elimina un medio de pago si es admin
  *    parameters:
  *    - name: idUserAdmin
@@ -143,9 +147,5 @@ router.delete(
   midValidarMPporID,
   eliminarMedioDePago
 ); // [N]
-
-//************************************* [M]
-// ********************************* [R]
-// ********************************* M y R se agregaron a pedidosDB
 
 module.exports = router;
