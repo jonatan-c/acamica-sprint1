@@ -1,15 +1,15 @@
 const MediosDePagoDB = [
   {
     idMedioDePago: 31,
-    nombre: "efectivo",
+    nombre: "Efectivo",
   },
   {
     idMedioDePago: 32,
-    nombre: "tarjeta de credito",
+    nombre: "Tarjeta de credito",
   },
   {
     idMedioDePago: 33,
-    nombre: "tarjeta de debito",
+    nombre: "Tarjeta de debito",
   },
 ];
 

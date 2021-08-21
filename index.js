@@ -21,6 +21,7 @@ const swaggerOptions = {
     "./routes/users.routes.js",
     "./routes/productos.routes.js",
     "./routes/pedidos.routes.js",
+    "./routes/mediosDePago.routes.js",
   ],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -37,7 +38,7 @@ app.use("/restaurant", usersRoutes);
 //********************************************* PEDIDOS **********************
 app.use("/restaurant", pedidosRoutes);
 //********************************************* METODOS DE PAGO **********************
-app.use("/restuarant", metodosDePagoRoutes);
+app.use("/restaurant", metodosDePagoRoutes);
 
 app.listen(port, () => {
   console.log(`Server listening on port http://localhost:${port}`);

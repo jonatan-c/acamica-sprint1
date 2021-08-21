@@ -17,6 +17,8 @@ const PedidosDB = [
       },
     ],
     estado: "Pendiente",
+    direccion: "Maipu 256",
+    metodoDePago: "Efectivo",
   },
   {
     idPedido: 23,
@@ -29,13 +31,24 @@ const PedidosDB = [
         cantidad: 3,
       },
     ],
-    estado: "aceptado",
+    estado: "Entregado",
+    direccion: "Maipu 256",
+    metodoDePago: "Efectivo",
   },
   {
     idPedido: 22,
     idUser: 2,
-    pedido: [{ idProducto: 11, nombre: "Hamburguesa Doble", precio: 1500 }],
-    estado: "pendiente",
+    pedido: [
+      {
+        idProducto: 11,
+        nombre: "Hamburguesa Doble",
+        precio: 1500,
+        cantidad: 3,
+      },
+    ],
+    estado: "Pendiente",
+    direccion: "Maipu 256",
+    metodoDePago: "Efectivo",
   },
 ];
 

@@ -1,5 +1,6 @@
 const pedidosDB = require("../models/Pedidos");
 const productosDB = require("../models/Productos");
+const MediosDePagoDB = require("../models/MediosDePago");
 
 const pedidosCtrl = {};
 //************************************ [C_P1] *** tengo dudas
@@ -10,13 +11,18 @@ pedidosCtrl.obtenerProductos = (req, res, next) => {
 
 pedidosCtrl.realizarPedido = (req, res, next) => {
   const newPedido = {};
-  const buscar = productosDB.find(
-    (el) => (el.idProducto = req.body.idProducto)
-  );
+  const buscar = productosDB.find((el) => el.idProducto == req.body.idProducto);
   newPedido.idPedido = parseInt(25);
   newPedido.idUser = req.params.idUser;
-  newPedido.pedido = buscar;
+  newPedido.pedido = [buscar];
+  newPedido.estado = "Pendiente";
   buscar.cantidad = req.body.cantidad;
+  newPedido.direccion = req.body.direccion;
+  const buscarIDMP = MediosDePagoDB.find(
+    (el) => el.idMedioDePago == req.body.idMedioDePago
+  );
+  newPedido.metodoDePago = buscarIDMP.nombre;
+
   // res.json(newPedido);
   pedidosDB.push(newPedido);
   res.json({ mensaje: "Producto Agregado Correctamente a pedidos" });
@@ -35,8 +41,9 @@ pedidosCtrl.obtenerPedidosIdUserAdmin = (req, res, next) => {
 pedidosCtrl.editarPedidosIdUserAdmin = (req, res, next) => {
   const idPedido = req.params.idPedido;
   const buscar = pedidosDB.find((ped) => ped.idPedido == idPedido);
+  console.log(buscar);
   if (!buscar) {
-    return res.status(404).json({ mensaje: "Producto no encontrado" });
+    return res.status(404).json({ mensaje: "Pedido no encontrado" });
   } else {
     buscar.estado = req.body.estado;
     res.json(buscar);
@@ -46,15 +53,8 @@ pedidosCtrl.editarPedidosIdUserAdmin = (req, res, next) => {
 //********************** [S y T]
 pedidosCtrl.editarPedidosIdUser = (req, res, next) => {
   const idPedido = req.params.idPedido;
-  const idProducto = req.params.idProducto;
+  const idProducto = req.body.idProducto;
   const buscar = pedidosDB.find((ped) => ped.idPedido == idPedido);
-  // let objetoPedidos = buscar.pedido;
-  // let buscadorIdProducto = objetoPedidos.find(
-  //   (el) => el.idProducto == idProducto
-  // );
-  // buscadorIdProducto.cantidad = req.body.cantidad;
-  // res.json(buscadorIdProducto);
-
   if (!buscar) {
     return res.status(404).json({ mensaje: "Pedido no encontrado" });
   } else {
