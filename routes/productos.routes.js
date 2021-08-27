@@ -14,7 +14,7 @@ const {
 } = require("../controllers/productos.controller");
 /**
  * @swagger
- * /restaurant/productos:
+ * /productos:
  *  get:
  *    tags:
  *      - Productos
@@ -29,7 +29,7 @@ router.get("/productos", obtenerProductos);
 //******************************************** [F]
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/productosAdmin:
+ * /users/{idUserAdmin}/productosAdmin:
  *  post:
  *    tags:
  *      - Productos
@@ -67,7 +67,7 @@ router.post(
 
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/productos/{idProducto}:
+ * /users/{idUserAdmin}/productos/{idProducto}:
  *  put:
  *    tags:
  *      - Productos
@@ -105,12 +105,12 @@ router.put(
   midValidarEstadoAdmin,
   midValidarRolAdmin,
   actualizarProducto
-); // solo por admin [G]
+); //  [G]
 
 //******************************************** [H]
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/productos/{idProducto}:
+ * /users/{idUserAdmin}/productos/{idProducto}:
  *  delete:
  *    tags:
  *      - Productos

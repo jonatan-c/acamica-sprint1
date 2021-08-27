@@ -4,7 +4,6 @@ function midValidarMPporID(req, res, next) {
   const estado = MediosDePagoDB.find(
     (user) => user.idMedioDePago == req.params.idMedioDePago
   );
-  console.log(estado);
   if (estado) {
     next();
   } else {

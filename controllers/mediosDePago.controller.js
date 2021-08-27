@@ -28,11 +28,11 @@ mediosDePagoCtrl.eliminarMedioDePago = (req, res, next) => {
   const obtenerMPID = req.params.idMedioDePago;
   const medioDePagoIndex = MediosDePagoDB.findIndex(
     (prod) => prod.idMedioDePago === parseInt(obtenerMPID)
-  ); //0 vs -1
+  ); //indice vs -1
   if (medioDePagoIndex === -1) {
     res.status(404).json({ mensaje: "Producto no encontrado" });
   } else {
-    MediosDePagoDB.splice(MediosDePagoDB, 1);
+    MediosDePagoDB.splice(medioDePagoIndex, 1);
     res.json({ mensaje: "Producto Eliminado Correctamente" });
   }
 };

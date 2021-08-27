@@ -4,7 +4,6 @@ function midValidarEstadoPedido(req, res, next) {
   const validacionExistenciaID = pedidosDB.find(
     (user) => user.idPedido == parseInt(req.params.idPedido)
   );
-  console.log(validacionExistenciaID);
   if (validacionExistenciaID.estado == "Pendiente") {
     next();
   } else {

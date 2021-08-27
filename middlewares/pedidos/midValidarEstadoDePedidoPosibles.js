@@ -2,7 +2,6 @@ const pedidosDB = require("../../models/Pedidos");
 
 function midValidarEstadoDePedidoPosibles(req, res, next) {
   const valoresPosible = req.body.estado;
-  //   console.log(valoresPosible);
   if (
     valoresPosible == "Pendiente" ||
     valoresPosible == "Confirmado" ||

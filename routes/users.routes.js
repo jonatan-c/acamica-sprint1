@@ -14,18 +14,13 @@ const {
 //********************** [A] y [L]
 /**
  * @swagger
- * /restaurant/users/crear-cuenta:
+ * /users/crear-cuenta:
  *  post:
  *    tags:
  *      - Crear cuenta y logear
  *    summary: Permite crear cuenta
  *    description: crea un usuario
  *    parameters:
- *    - name: idUser
- *      description: Id del usuario
- *      in: formData
- *      required: false
- *      type: integer
  *    - name: nombre
  *      description: nombre del usuario
  *      in: formData
@@ -50,18 +45,13 @@ router.post("/users/crear-cuenta", midValidarEmail, crearUsuario); // [A] y [L]
 ///****************************[B]
 /**
  * @swagger
- * /restaurant/users/login:
+ * /users/login:
  *  post:
  *    tags:
  *      - Crear cuenta y logear
  *    summary: Permite iniciar sesion
  *    description: inicia sesion en la aplicacion
  *    parameters:
- *    - name: id
- *      description: Id del vehiculo
- *      in: formData
- *      required: false
- *      type: integer
  *    - name: nombre
  *      description: nombre del usuario
  *      in: formData

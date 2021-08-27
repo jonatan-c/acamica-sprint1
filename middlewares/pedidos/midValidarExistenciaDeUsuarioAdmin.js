@@ -1,6 +1,5 @@
 const usersDB = require("../../models/Users");
 
-console.log("estado");
 function midValidarExistenciaDeUsuarioAdmin(req, res, next) {
   const estado = usersDB.find((user) => user.idUser == req.params.idUserAdmin);
   if (estado) {
@@ -10,5 +9,3 @@ function midValidarExistenciaDeUsuarioAdmin(req, res, next) {
   }
 }
 module.exports = midValidarExistenciaDeUsuarioAdmin;
-
-// valida que el usuario existe, verifica si esta en BD

@@ -2,7 +2,6 @@ const pedidosDB = require("../../models/Pedidos");
 
 function midValidarPedidoExista(req, res, next) {
   const estado = pedidosDB.find((user) => user.idPedido == req.params.idPedido);
-  console.log(estado);
   if (estado) {
     next();
   } else {

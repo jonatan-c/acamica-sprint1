@@ -3,30 +3,51 @@ const productosDB = require("../models/Productos");
 const MediosDePagoDB = require("../models/MediosDePago");
 
 const pedidosCtrl = {};
-//************************************ [C_P1] *** tengo dudas
+//************************************ [C_P1] ***
 pedidosCtrl.obtenerProductos = (req, res, next) => {
   res.json(productosDB);
 };
 //************************************ [C_P2] *** tengo dudas
-
+// "/users/:idUser/productos"
 pedidosCtrl.realizarPedido = (req, res, next) => {
   const newPedido = {};
-  const buscar = productosDB.find((el) => el.idProducto == req.body.idProducto);
-  newPedido.idPedido = parseInt(25);
-  newPedido.idUser = req.params.idUser;
-  newPedido.pedido = [buscar];
-  newPedido.estado = "Pendiente";
-  buscar.cantidad = req.body.cantidad;
-  newPedido.direccion = req.body.direccion;
-  const buscarIDMP = MediosDePagoDB.find(
-    (el) => el.idMedioDePago == req.body.idMedioDePago
-  );
-  newPedido.metodoDePago = buscarIDMP.nombre;
 
-  // res.json(newPedido);
-  pedidosDB.push(newPedido);
-  res.json({ mensaje: "Producto Agregado Correctamente a pedidos" });
+  const buscarIdUserPedido = pedidosDB.find(
+    (el) => el.idUser == req.params.idUser
+  );
+
+  const buscarIDUserPEdidoARRAY = [buscarIdUserPedido];
+
+  const comprobacionPEdido = buscarIDUserPEdidoARRAY.find(
+    (el) => el.idPedido == req.body.idPedido
+  );
+  // console.log(comprobacionPEdido);
+  if (comprobacionPEdido) {
+    const arreglodePedido = comprobacionPEdido.pedido;
+    newPedido.idProducto = req.body.idProducto;
+    newPedido.cantidad = req.body.cantidad;
+    arreglodePedido.push(newPedido);
+  } else {
+    newPedido.idPedido = parseInt(35);
+    newPedido.idUser = req.params.idUser;
+    newPedido.pedido = [req.body.idProducto, req.body.cantidad];
+    // newPedido.idProducto = req.body.idProducto;
+    // newPedido.cantidad = req.body.cantidad;
+    newPedido.estado = "Pendiente";
+    newPedido.direccion = req.body.direccion;
+    const buscarIDMP = MediosDePagoDB.find(
+      (el) => el.idMedioDePago == req.body.idMedioDePago
+    );
+    newPedido.metodoDePago = buscarIDMP.nombre;
+    //a
+    pedidosDB.push(newPedido);
+    // console.log(newPedido);
+  }
+  //
+
+  res.json({ mensaje: "Producto/s Agregado Correctamente a pedidos" });
 };
+
 //**********************[D]
 pedidosCtrl.obtenerPedidosIdUser = (req, res, next) => {
   const idUser = req.params.idUser;
@@ -41,7 +62,6 @@ pedidosCtrl.obtenerPedidosIdUserAdmin = (req, res, next) => {
 pedidosCtrl.editarPedidosIdUserAdmin = (req, res, next) => {
   const idPedido = req.params.idPedido;
   const buscar = pedidosDB.find((ped) => ped.idPedido == idPedido);
-  console.log(buscar);
   if (!buscar) {
     return res.status(404).json({ mensaje: "Pedido no encontrado" });
   } else {
@@ -66,8 +86,30 @@ pedidosCtrl.editarPedidosIdUser = (req, res, next) => {
       return res.status(404).json({ mensaje: "Producto no encontrado" });
     } else {
       buscadorIdProducto.cantidad = req.body.cantidad;
-      res.json(buscadorIdProducto);
+      res.json("Pedido editado Correctamente");
     }
   }
 };
+
+pedidosCtrl.eliminarPedidosIdUser = (req, res, next) => {
+  const idPedido = req.params.idPedido;
+  const idProducto = req.body.idProducto;
+  const buscar = pedidosDB.find((ped) => ped.idPedido == idPedido);
+
+  if (!buscar) {
+    return res.status(404).json({ mensaje: "Pedido no encontrado" });
+  } else {
+    const buscarBD = buscar.pedido;
+    const productoIndex = buscarBD.findIndex(
+      (prod) => prod.idProducto === parseInt(idProducto)
+    ); //0 vs -1
+    if (productoIndex === -1) {
+      res.status(404).json({ mensaje: "Producto no encontrado" });
+    } else {
+      buscarBD.splice(productoIndex, 1);
+      res.json({ mensaje: "Producto Eliminado Correctamente" });
+    }
+  }
+};
+
 module.exports = pedidosCtrl;

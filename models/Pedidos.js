@@ -45,6 +45,12 @@ const PedidosDB = [
         precio: 1500,
         cantidad: 3,
       },
+      {
+        idProducto: 13,
+        nombre: "Coca",
+        precio: 50,
+        cantidad: 1,
+      },
     ],
     estado: "Pendiente",
     direccion: "Maipu 256",

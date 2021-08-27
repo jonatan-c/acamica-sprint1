@@ -37,7 +37,7 @@ productosCtrl.eliminarProducto = (req, res, next) => {
   if (productoIndex === -1) {
     res.status(404).json({ mensaje: "Producto no encontrado" });
   } else {
-    productosDB.splice(productosDB, 1);
+    productosDB.splice(productoIndex, 1);
     res.json({ mensaje: "Producto Eliminado Correctamente" });
   }
 };

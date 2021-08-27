@@ -32,13 +32,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //routes
 //********************************************* PRODUCTOS **********************
-app.use("/restaurant", productosRoutes);
+app.use("/", productosRoutes);
 //********************************************* USERS **********************
-app.use("/restaurant", usersRoutes);
+app.use("/", usersRoutes);
 //********************************************* PEDIDOS **********************
-app.use("/restaurant", pedidosRoutes);
+app.use("/", pedidosRoutes);
 //********************************************* METODOS DE PAGO **********************
-app.use("/restaurant", metodosDePagoRoutes);
+app.use("/", metodosDePagoRoutes);
 
 app.listen(port, () => {
   console.log(`Server listening on port http://localhost:${port}`);

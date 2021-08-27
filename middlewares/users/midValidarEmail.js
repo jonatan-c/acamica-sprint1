@@ -9,5 +9,3 @@ function midValidarEmail(req, res, next) {
   }
 }
 module.exports = midValidarEmail;
-
-// valida que el email no se repita

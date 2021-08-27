@@ -18,7 +18,7 @@ const {
 //************************************* [Q]
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/mediosDePago:
+ * /users/{idUserAdmin}/mediosDePago:
  *  get:
  *    tags:
  *      - Medios de pago Admin
@@ -45,7 +45,7 @@ router.get(
 //************************************* [N]
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/mediosDePago:
+ * /users/{idUserAdmin}/mediosDePago:
  *  post:
  *    tags:
  *      - Medios de pago Admin
@@ -78,7 +78,7 @@ router.post(
 //************************************* [O]
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/mediosDePago/{idMedioDePago}:
+ * /users/{idUserAdmin}/mediosDePago/{idMedioDePago}:
  *  put:
  *    tags:
  *      - Medios de pago Admin
@@ -96,7 +96,7 @@ router.post(
  *      required: true
  *      type: integer
  *    - name: nombre
- *      description: Nueva cantidad del pedido
+ *      description: nuevo nombre del pedido
  *      in: formData
  *      required: true
  *      type: string
@@ -117,7 +117,7 @@ router.put(
 //************************************* [P]
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/mediosDePago/{idMedioDePago}:
+ * /users/{idUserAdmin}/mediosDePago/{idMedioDePago}:
  *  delete:
  *    tags:
  *      - Medios de pago Admin
@@ -125,7 +125,7 @@ router.put(
  *    description: elimina un medio de pago si es admin
  *    parameters:
  *    - name: idUserAdmin
- *      description: Id del vehiculo
+ *      description: Id del user Admin
  *      in: path
  *      required: true
  *      type: integer

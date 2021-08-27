@@ -10,7 +10,7 @@ const midValidarEstadoPedido = require("../middlewares/pedidos/midValidarEstadoP
 const midValidarEstadoDePedidoPosibles = require("../middlewares/pedidos/midValidarEstadoDePedidoPosibles");
 const midValidarRolUser = require("../middlewares/pedidos/midValidarRolUser");
 const midValidarPedidoExista = require("../middlewares/pedidos/midValidarPedidoExista");
-const midValidarEcistenciadeIDPEDIDO = require("../middlewares/pedidos/midValidarEcistenciadeIDPEDIDO");
+const midValidarExistenciadeIDPEDIDO = require("../middlewares/pedidos/midValidarExistenciadeIDPEDIDO");
 
 const {
   obtenerProductos,
@@ -20,11 +20,12 @@ const {
   editarPedidosIdUser,
   realizarPedido,
   editarCantidadPedido,
+  eliminarPedidosIdUser,
 } = require("../controllers/pedidos.controller");
 ///********************************* [C_P1] ////////////////
 /**
  * @swagger
- * /restaurant/users/{idUser}/productos:
+ * /users/{idUser}/productos:
  *  get:
  *    tags:
  *      - Pedidos USER
@@ -50,7 +51,7 @@ router.get(
 ///********************************* [C_P2] ////////////////
 /**
  * @swagger
- * /restaurant/users/{idUser}/productos:
+ * /users/{idUser}/productos:
  *  post:
  *    tags:
  *      - Pedidos USER
@@ -64,6 +65,11 @@ router.get(
  *      type: integer
  *    - name: idProducto
  *      description: idProducto del producto que quiere agregar al pedido
+ *      in: formData
+ *      required: false
+ *      type: number
+ *    - name: idPedido
+ *      description: idPedido
  *      in: formData
  *      required: false
  *      type: number
@@ -91,13 +97,16 @@ router.post(
   midValidarExistenciaDeUsuario,
   midValidarEstadoOnLine,
   midValidarRolUser,
+  // midValidarExistenciaIDPedido,
   realizarPedido
+
+  // 1ero hace rque por formData me envie el idPedido, si esta en base de datos, esta agregando mas, en caso contrario esta aumentando
 );
 
 //********************************** [D]********************************************
 /**
  * @swagger
- * /restaurant/users/{idUser}/pedidos:
+ * /users/{idUser}/pedidos:
  *  get:
  *    tags:
  *      - Pedidos USER
@@ -123,7 +132,7 @@ router.get(
 ////////////////////////////////////// [S y T] ***************************************
 /**
  * @swagger
- * /restaurant/users/{idUser}/pedidos/{idPedido}:
+ * /users/{idUser}/pedidos/{idPedido}:
  *  put:
  *    tags:
  *      - Pedidos USER
@@ -159,18 +168,58 @@ router.put(
   "/users/:idUser/pedidos/:idPedido",
   midValidarExistenciaDeUsuario,
   midValidarEstadoOnLine,
-  midValidarEcistenciadeIDPEDIDO,
+  midValidarExistenciadeIDPEDIDO,
   midValidarEstadoPedido,
   midValidarPedidoExista,
   editarPedidosIdUser
 ); // [S]
-module.exports = router;
+
+///// elminar producto por id usuario
+
+/**
+ * @swagger
+ * /users/{idUser}/pedidos/{idPedido}:
+ *  delete:
+ *    tags:
+ *      - Pedidos USER
+ *    summary: Elimnar producto de pedido
+ *    description: Eliminar producto de pedido
+ *    parameters:
+ *    - name: idUser
+ *      description: Id del user
+ *      in: path
+ *      required: true
+ *      type: integer
+ *    - name: idPedido
+ *      description: idPedido del pedido para editar, si se encuentra "Pendiente"
+ *      in: path
+ *      required: true
+ *      type: integer
+ *    - name: idProducto
+ *      description: idProducto del pedido para eliminar, si se encuentra "Pendiente"
+ *      in: formData
+ *      required: true
+ *      type: integer
+ *    responses:
+ *      200:
+ *        description: Success
+ */
+
+router.delete(
+  "/users/:idUser/pedidos/:idPedido",
+  midValidarExistenciaDeUsuario,
+  midValidarEstadoOnLine,
+  midValidarExistenciadeIDPEDIDO,
+  midValidarEstadoPedido,
+  midValidarPedidoExista,
+  eliminarPedidosIdUser
+); // [S]
 
 ////////////////////////////////////// [E_1] ***************************************
 
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/pedidosAdmin:
+ * /users/{idUserAdmin}/pedidosAdmin:
  *  get:
  *    tags:
  *      - Pedidos Admin
@@ -196,7 +245,7 @@ router.get(
 ////////////////////////////////////// [E_2] ***************************************
 /**
  * @swagger
- * /restaurant/users/{idUserAdmin}/pedidosAdmin/{idPedido}:
+ * /users/{idUserAdmin}/pedidosAdmin/{idPedido}:
  *  put:
  *    tags:
  *      - Pedidos Admin
@@ -230,3 +279,5 @@ router.put(
   midValidarEstadoDePedidoPosibles,
   editarPedidosIdUserAdmin
 ); // [E_2]
+
+module.exports = router;

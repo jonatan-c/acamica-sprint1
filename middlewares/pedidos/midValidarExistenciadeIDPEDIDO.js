@@ -1,10 +1,9 @@
 const pedidosDB = require("../../models/Pedidos");
 
-function midValidarEcistenciadeIDPEDIDO(req, res, next) {
+function midValidarExistenciadeIDPEDIDO(req, res, next) {
   const validacionExistenciaID = pedidosDB.find(
     (user) => user.idPedido == parseInt(req.params.idPedido)
   );
-  console.log(validacionExistenciaID);
   if (validacionExistenciaID) {
     next();
   } else {
@@ -14,4 +13,4 @@ function midValidarEcistenciadeIDPEDIDO(req, res, next) {
   }
 }
 
-module.exports = midValidarEcistenciadeIDPEDIDO;
+module.exports = midValidarExistenciadeIDPEDIDO;
