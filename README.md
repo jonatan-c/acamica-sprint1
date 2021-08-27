@@ -2,13 +2,13 @@
 
 ### Introducción
 
-Api Rest para app de un restaurante.
+API para app de un restaurante.
 
 ### Instrucciones de instalación
 
 ```
 
-git clone https://gitlab.com/danielsegovia/acamica-dwbe-sprint-project-01
+git clone https://github.com/jonatan-c/acamica-sprint1.git
 o descargar
 npm install
 npm run start
