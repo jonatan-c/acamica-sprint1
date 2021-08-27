@@ -118,12 +118,12 @@ router.put(
  *    description: Permite eliminar un producto
  *    parameters:
  *    - name: idUserAdmin
- *      description: Id del vehiculo
+ *      description: Id del userAdmin
  *      in: path
  *      required: true
  *      type: integer
  *    - name: idProducto
- *      description: Id del vehiculo
+ *      description: Id del Producto
  *      in: path
  *      required: true
  *      type: integer

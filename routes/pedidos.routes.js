@@ -19,7 +19,6 @@ const {
   editarPedidosIdUserAdmin,
   editarPedidosIdUser,
   realizarPedido,
-  editarCantidadPedido,
   eliminarPedidosIdUser,
 } = require("../controllers/pedidos.controller");
 ///********************************* [C_P1] ////////////////

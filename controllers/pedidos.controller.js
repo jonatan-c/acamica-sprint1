@@ -7,7 +7,7 @@ const pedidosCtrl = {};
 pedidosCtrl.obtenerProductos = (req, res, next) => {
   res.json(productosDB);
 };
-//************************************ [C_P2] *** tengo dudas
+//************************************ [C_P2]
 // "/users/:idUser/productos"
 pedidosCtrl.realizarPedido = (req, res, next) => {
   const newPedido = {};
@@ -21,7 +21,6 @@ pedidosCtrl.realizarPedido = (req, res, next) => {
   const comprobacionPEdido = buscarIDUserPEdidoARRAY.find(
     (el) => el.idPedido == req.body.idPedido
   );
-  // console.log(comprobacionPEdido);
   if (comprobacionPEdido) {
     const arreglodePedido = comprobacionPEdido.pedido;
     newPedido.idProducto = req.body.idProducto;
@@ -30,18 +29,18 @@ pedidosCtrl.realizarPedido = (req, res, next) => {
   } else {
     newPedido.idPedido = parseInt(35);
     newPedido.idUser = req.params.idUser;
-    newPedido.pedido = [req.body.idProducto, req.body.cantidad];
-    // newPedido.idProducto = req.body.idProducto;
-    // newPedido.cantidad = req.body.cantidad;
+    const buscarProducto = productosDB.find(
+      (el) => el.idProducto == req.body.idProducto
+    );
+    buscarProducto.cantidad = req.body.cantidad;
+    newPedido.pedido = [buscarProducto];
     newPedido.estado = "Pendiente";
     newPedido.direccion = req.body.direccion;
     const buscarIDMP = MediosDePagoDB.find(
       (el) => el.idMedioDePago == req.body.idMedioDePago
     );
     newPedido.metodoDePago = buscarIDMP.nombre;
-    //a
     pedidosDB.push(newPedido);
-    // console.log(newPedido);
   }
   //
 
