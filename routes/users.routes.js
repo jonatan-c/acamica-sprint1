@@ -26,7 +26,7 @@ const {
  *      in: formData
  *      required: true
  *      type: string
- *    - name: password
+ *    - name: password1
  *      description: password del usuario
  *      in: formData
  *      required: true
@@ -40,7 +40,7 @@ const {
  *      200:
  *        description: Success
  */
-
+//  midValidarEmail
 router.post("/users/crear-cuenta", midValidarEmail, crearUsuario); // [A] y [L]
 ///****************************[B]
 /**
@@ -72,6 +72,6 @@ router.post("/users/crear-cuenta", midValidarEmail, crearUsuario); // [A] y [L]
  *        description: Success
  */
 
-router.post("/users/login", midValidarLogin, iniciarSesion); // [B]
+// router.post("/users/login", midValidarLogin, iniciarSesion); // [B]
 
 module.exports = router;

@@ -37,7 +37,7 @@ const {
 router.get(
   "/users/:idUserAdmin/mediosDePago",
   midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
+  // midValidarEstadoAdmin,
   midValidarRolAdmin,
   obtenerMediosDePago
 );
@@ -68,10 +68,10 @@ router.get(
  */
 router.post(
   "/users/:idUserAdmin/mediosDePago",
-  midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
-  midValidarRolAdmin,
-  midValidarMP,
+  // midValidarExistenciaDeUsuarioAdmin,
+  // midValidarEstadoAdmin,
+  // midValidarRolAdmin,
+  // midValidarMP,
   agregarMedioDePago
 ); // [N]
 
@@ -106,11 +106,11 @@ router.post(
  */
 router.put(
   "/users/:idUserAdmin/mediosDePago/:idMedioDePago",
-  midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
-  midValidarRolAdmin,
-  midValidarMP,
-  midValidarMPporID,
+  // midValidarExistenciaDeUsuarioAdmin,
+  // midValidarEstadoAdmin,
+  // midValidarRolAdmin,
+  // midValidarMP,
+  // midValidarMPporID,
   editarMedioDePago
 ); // [N]
 
@@ -140,11 +140,11 @@ router.put(
  */
 router.delete(
   "/users/:idUserAdmin/mediosDePago/:idMedioDePago",
-  midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
-  midValidarRolAdmin,
-  midValidarMP,
-  midValidarMPporID,
+  // midValidarExistenciaDeUsuarioAdmin,
+  // midValidarEstadoAdmin,
+  // midValidarRolAdmin,
+  // midValidarMP,
+  // midValidarMPporID,
   eliminarMedioDePago
 ); // [N]
 
