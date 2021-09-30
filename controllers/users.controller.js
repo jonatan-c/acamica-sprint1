@@ -3,25 +3,62 @@ const Sequelize = require("sequelize");
 const connection = require("../config/db.config");
 const usersDB = require("../models/Users")(connection, Sequelize);
 
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const usersCtrl = {};
 ///*********************************** [A] y [L]
-usersCtrl.crearUsuario = async (req, res, next) => {
+usersCtrl.createUser = async (req, res, next) => {
   const newUser = await usersDB.build({
-    // rol: req.body.rol,
-    nombre: req.body.nombre,
+    name: req.body.name,
     email: req.body.email,
     password1: req.body.password1,
-    // estado: req.body.estado,
   });
-  const result = await newUser.save();
-  // console.log(result);
 
-  res.json({ mensaje: "Usuario creado correctamente" });
+  res.json({ mensaje: "User created successfully" });
 };
-//************************************ [B]
-// usersCtrl.iniciarSesion = (req, res, next) => {
-//   res.json({ mensaje: `Hola ${req.body.nombre} , gracias por logear!!!` });
-// };
+
+// const Usuario = require("../models/Usuario");
+
+// exports.crearUsuario = async (req, res) => {
+//   //revisar si hay errores
+//   const { email, password } = req.body;
+//   try {
+//     //crea el nuevo usuario
+//     usuario = new Usuario(req.body);
+
+//     //Hashear el password
+//     const salt = await bcryptjs.genSalt(10);
+//     usuario.password = await bcryptjs.hash(password, salt);
+
+//     // guarda el usuario
+//     await usuario.save();
+
+//     // Crear y firmar el JWT
+//     const payload = {
+//       usuario: {
+//         id: usuario.id,
+//       },
+//     };
+
+//     // firmar el JWT
+//     jwt.sign(
+//       payload,
+//       process.env.SECRETA,
+//       {
+//         expiresIn: 3600, //1hora
+//       },
+//       (error, token) => {
+//         if (error) throw error;
+
+//         //Mensaje de confirmacion
+//         res.json({ token });
+//       }
+//       );
+//     } catch (error) {
+//       console.log(error);
+//     res.status(400).send("Hubo un error");
+//   }
+// }
 // //******************** SIN USO ACTUALMENTE
 
 // usersCtrl.eliminarUsuario = (req, res, next) => {
@@ -52,5 +89,8 @@ usersCtrl.crearUsuario = async (req, res, next) => {
 //     res.json(existeUsuario);
 //   }
 // };
-
+//************************************ [B]
+// usersCtrl.iniciarSesion = (req, res, next) => {
+//   res.json({ mensaje: `Hola ${req.body.nombre} , gracias por logear!!!` });
+// };
 module.exports = usersCtrl;

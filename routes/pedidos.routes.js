@@ -1,16 +1,16 @@
 const { Router } = require("express");
 const router = Router();
 
-const midValidarExistenciaDeUsuario = require("../middlewares/users/midValidarExistenciaDeUsuario");
-const midValidarEstadoOnLine = require("../middlewares/users/midValidarEstadoOnLine");
-const midValidarExistenciaDeUsuarioAdmin = require("../middlewares/pedidos/midValidarExistenciaDeUsuarioAdmin");
-const midValidarEstadoAdmin = require("../middlewares/pedidos/midValidarEstadoAdmin");
-const midValidarRolAdmin = require("../middlewares/pedidos/midValidarRolAdmin");
-const midValidarEstadoPedido = require("../middlewares/pedidos/midValidarEstadoPedido");
-const midValidarEstadoDePedidoPosibles = require("../middlewares/pedidos/midValidarEstadoDePedidoPosibles");
-const midValidarRolUser = require("../middlewares/pedidos/midValidarRolUser");
-const midValidarPedidoExista = require("../middlewares/pedidos/midValidarPedidoExista");
-const midValidarExistenciadeIDPEDIDO = require("../middlewares/pedidos/midValidarExistenciadeIDPEDIDO");
+// const midValidarExistenciaDeUsuario = require("../middlewares/users/midValidarExistenciaDeUsuario");
+// const midValidarEstadoOnLine = require("../middlewares/users/midValidarEstadoOnLine");
+// // const midValidarExistenciaDeUsuarioAdmin = require("../middlewares/pedidos/midValidarExistenciaDeUsuarioAdmin");
+// const midValidarEstadoAdmin = require("../middlewares/pedidos/midValidarEstadoAdmin");
+// const midValidarRolAdmin = require("../middlewares/pedidos/midValidarRolAdmin");
+// const midValidarEstadoPedido = require("../middlewares/pedidos/midValidarEstadoPedido");
+// const midValidarEstadoDePedidoPosibles = require("../middlewares/pedidos/midValidarEstadoDePedidoPosibles");
+// const midValidarRolUser = require("../middlewares/pedidos/midValidarRolUser");
+// const midValidarPedidoExista = require("../middlewares/pedidos/midValidarPedidoExista");
+// const midValidarExistenciadeIDPEDIDO = require("../middlewares/pedidos/midValidarExistenciadeIDPEDIDO");
 
 const {
   obtenerProductos,
@@ -43,8 +43,8 @@ const {
 
 router.get(
   "/users/:idUser/productos",
-  midValidarExistenciaDeUsuario,
-  midValidarEstadoOnLine,
+  // midValidarExistenciaDeUsuario,
+  // midValidarEstadoOnLine,
   obtenerProductos
 );
 ///********************************* [C_P2] ////////////////
@@ -93,9 +93,9 @@ router.get(
  */
 router.post(
   "/users/:idUser/productos",
-  midValidarExistenciaDeUsuario,
-  midValidarEstadoOnLine,
-  midValidarRolUser,
+  // midValidarExistenciaDeUsuario,
+  // midValidarEstadoOnLine,
+  // midValidarRolUser,
   // midValidarExistenciaIDPedido,
   realizarPedido
 
@@ -123,8 +123,8 @@ router.post(
  */
 router.get(
   "/users/:idUser/pedidos",
-  midValidarExistenciaDeUsuario,
-  midValidarEstadoOnLine,
+  // midValidarExistenciaDeUsuario,
+  // midValidarEstadoOnLine,
   obtenerPedidosIdUser
 ); // [D]
 
@@ -165,11 +165,11 @@ router.get(
 
 router.put(
   "/users/:idUser/pedidos/:idPedido",
-  midValidarExistenciaDeUsuario,
-  midValidarEstadoOnLine,
-  midValidarExistenciadeIDPEDIDO,
-  midValidarEstadoPedido,
-  midValidarPedidoExista,
+  // midValidarExistenciaDeUsuario,
+  // midValidarEstadoOnLine,
+  // midValidarExistenciadeIDPEDIDO,
+  // midValidarEstadoPedido,
+  // midValidarPedidoExista,
   editarPedidosIdUser
 ); // [S]
 
@@ -206,11 +206,11 @@ router.put(
 
 router.delete(
   "/users/:idUser/pedidos/:idPedido",
-  midValidarExistenciaDeUsuario,
-  midValidarEstadoOnLine,
-  midValidarExistenciadeIDPEDIDO,
-  midValidarEstadoPedido,
-  midValidarPedidoExista,
+  // midValidarExistenciaDeUsuario,
+  // midValidarEstadoOnLine,
+  // midValidarExistenciadeIDPEDIDO,
+  // midValidarEstadoPedido,
+  // midValidarPedidoExista,
   eliminarPedidosIdUser
 ); // [S]
 
@@ -236,9 +236,9 @@ router.delete(
  */
 router.get(
   "/users/:idUserAdmin/pedidosAdmin",
-  midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
-  midValidarRolAdmin,
+  // midValidarExistenciaDeUsuarioAdmin,
+  // midValidarEstadoAdmin,
+  // midValidarRolAdmin,
   obtenerPedidosIdUserAdmin
 ); // [E_1]
 ////////////////////////////////////// [E_2] ***************************************
@@ -271,12 +271,12 @@ router.get(
  *        description: Success
  */
 router.put(
-  "/users/:idUserAdmin/pedidosAdmin/:idPedido",
-  midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
-  midValidarRolAdmin,
-  midValidarEstadoDePedidoPosibles,
-  editarPedidosIdUserAdmin
+  "/users/:idUserAdmin/pedidosAdmin/:idPedido"
+  // midValidarExistenciaDeUsuarioAdmin,
+  // midValidarEstadoAdmin,
+  // midValidarRolAdmin,
+  // midValidarEstadoDePedidoPosibles,
+  // editarPedidosIdUserAdmin
 ); // [E_2]
 
 module.exports = router;

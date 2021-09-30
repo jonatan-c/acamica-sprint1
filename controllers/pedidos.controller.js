@@ -1,9 +1,9 @@
 const pedidosDB = require("../models/Pedidos");
-const productosDB = require("../models/Productos");
-const MediosDePagoDB = require("../models/MediosDePago");
+// const productosDB = require("../models/Productos");
+const MediosDePagoDB = require("../models/PaymentMethods");
 
 const pedidosCtrl = {};
-//************************************ [C_P1] ***
+// //************************************ [C_P1] ***
 pedidosCtrl.obtenerProductos = (req, res, next) => {
   res.json(productosDB);
 };

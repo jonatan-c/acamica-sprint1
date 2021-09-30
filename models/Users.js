@@ -7,10 +7,10 @@ const usersDB = (connection, Sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      rol: {
+      role: {
         type: Sequelize.STRING,
       },
-      nombre: {
+      name: {
         type: Sequelize.STRING,
       },
       password1: {
@@ -19,7 +19,7 @@ const usersDB = (connection, Sequelize) => {
       email: {
         type: Sequelize.STRING,
       },
-      estado: {
+      state: {
         type: Sequelize.STRING,
       },
     },

@@ -1,11 +1,13 @@
 const { Router } = require("express");
 const router = Router();
-const midValidarEmail = require("../middlewares/users/midValidarEmail");
-const midValidarLogin = require("../middlewares/users/midValidarLogin");
-const usersDB = require("../models/Users");
+
+//*****************middlewares */
+
+const { isEmailValid } = require("../middlewares/users/users.middlewares");
+// const midValidarLogin = require("../middlewares/users/midValidarLogin");
 
 const {
-  crearUsuario,
+  createUser,
   iniciarSesion,
   eliminarUsuario,
   actualizarUsuario,
@@ -14,14 +16,14 @@ const {
 //********************** [A] y [L]
 /**
  * @swagger
- * /users/crear-cuenta:
+ * /users/register:
  *  post:
  *    tags:
  *      - Crear cuenta y logear
  *    summary: Permite crear cuenta
  *    description: crea un usuario
  *    parameters:
- *    - name: nombre
+ *    - name: name
  *      description: nombre del usuario
  *      in: formData
  *      required: true
@@ -41,7 +43,7 @@ const {
  *        description: Success
  */
 //  midValidarEmail
-router.post("/users/crear-cuenta", midValidarEmail, crearUsuario); // [A] y [L]
+router.post("/users/register", isEmailValid, createUser); // [A] y [L]
 ///****************************[B]
 /**
  * @swagger

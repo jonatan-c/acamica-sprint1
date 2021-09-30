@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 const port = 6001;
-const productosRoutes = require("./routes/productos.routes");
+const productsRoutes = require("./routes/products.routes");
 const usersRoutes = require("./routes/users.routes");
 const pedidosRoutes = require("./routes/pedidos.routes");
-const metodosDePagoRoutes = require("./routes/mediosDePago.routes");
+const paymentMethods = require("./routes/paymentMethods.routes");
 
 // ********************* SWAGGER ************
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -19,9 +19,9 @@ const swaggerOptions = {
   },
   apis: [
     "./routes/users.routes.js",
-    "./routes/productos.routes.js",
+    "./routes/products.routes.js",
     "./routes/pedidos.routes.js",
-    "./routes/mediosDePago.routes.js",
+    "./routes/paymentMethods.routes.js",
   ],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -33,14 +33,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //routes
-//********************************************* PRODUCTOS **********************
-app.use("/", productosRoutes);
+//********************************************* PRODUCTS **********************
+app.use("/", productsRoutes);
 //********************************************* USERS **********************
 app.use("/", usersRoutes);
 //********************************************* PEDIDOS **********************
-app.use("/", pedidosRoutes);
-//********************************************* METODOS DE PAGO **********************
-app.use("/", metodosDePagoRoutes);
+// app.use("/", pedidosRoutes);
+//********************************************* PAYMENT METHODS **********************
+app.use("/", paymentMethods);
 
 app.listen(port, () => {
   console.log(`Server listening on port http://localhost:${port}`);

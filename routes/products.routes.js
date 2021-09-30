@@ -1,20 +1,22 @@
 const { Router } = require("express");
 const router = Router();
 
-const midValidarExistenciaDeUsuarioAdmin = require("../middlewares/pedidos/midValidarExistenciaDeUsuarioAdmin");
-const midValidarEstadoAdmin = require("../middlewares/pedidos/midValidarEstadoAdmin");
-const midValidarRolAdmin = require("../middlewares/pedidos/midValidarRolAdmin");
+const {
+  adminIdExist,
+  isAdminRole,
+  isAdminOnline,
+} = require("../middlewares/users/usersAdmin.middlewares");
 
 const {
-  obtenerProductos,
-  agregarProducto,
-  obtenerProducto,
-  eliminarProducto,
-  actualizarProducto,
-} = require("../controllers/productos.controller");
+  getProducts,
+  addProduct,
+  getProductbyId,
+  deleteProductbyId,
+  editProduct,
+} = require("../controllers/products.controller");
 /**
  * @swagger
- * /productos:
+ * /products:
  *  get:
  *    tags:
  *      - Productos
@@ -25,31 +27,36 @@ const {
  *        description: Success
  */
 
-router.get("/productos", obtenerProductos);
+router.get("/products", getProducts);
 //******************************************** [F]
 /**
  * @swagger
- * /users/{idUserAdmin}/productosAdmin:
+ * /users/{idAdminUser}/productsAdmin:
  *  post:
  *    tags:
  *      - Productos
  *    summary: El admin puede agregar productos a la base de datos de productos
  *    description: Permite al admin agregar nuevos productos
  *    parameters:
- *    - name: idUserAdmin
+ *    - name: idAdminUser
  *      description: Id del usuario
  *      in: path
  *      required: true
  *      type: integer
- *    - name: nombre
+ *    - name: name_product
  *      description: nombre del nuevo producto a agregar
  *      in: formData
  *      required: true
  *      type: string
- *    - name: precio
+ *    - name: price_product
  *      description: precio del nuevo producto
  *      in: formData
  *      required: true
+ *      type: number
+ *    - name: quantity_product
+ *      description: precio del nuevo producto
+ *      in: formData
+ *      required: false
  *      type: number
  *    responses:
  *      200:
@@ -57,72 +64,77 @@ router.get("/productos", obtenerProductos);
  */
 
 router.post(
-  "/users/:idUserAdmin/productosAdmin",
-  midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
-  midValidarRolAdmin,
-  agregarProducto
+  "/users/:idAdminUser/productsAdmin",
+  adminIdExist,
+  isAdminRole,
+  isAdminOnline,
+  addProduct
 ); // [F]
 //******************************************** [G]
 
 /**
  * @swagger
- * /users/{idUserAdmin}/productos/{idProducto}:
+ * /users/{idAdminUser}/products/{idProduct}:
  *  put:
  *    tags:
  *      - Productos
  *    summary: El admin puede editar productos de la base de datos de productos por id
  *    description: Permite al admin editar un producto por id
  *    parameters:
- *    - name: idUserAdmin
+ *    - name: idAdminUser
  *      description: Id del userAdmin
  *      in: path
  *      required: true
  *      type: integer
- *    - name: idProducto
- *      description: idProducto del producto, para comprobar que exista
+ *    - name: idProduct
+ *      description: idProduct del producto, para comprobar que exista
  *      in: path
  *      required: true
  *      type: integer
- *    - name: nombre
+ *    - name: name_product
  *      description: Nuevo nombre del producto
  *      in: formData
  *      required: true
  *      type: string
- *    - name: precio
+ *    - name: price_product
  *      description: Nuevo precio del producto
  *      in: formData
  *      required: true
  *      type: integer
+ *    - name: quantity_product
+ *      description: precio del nuevo producto
+ *      in: formData
+ *      required: false
+ *      type: number
  *    responses:
  *      200:
  *        description: Success
  */
 
 router.put(
-  "/users/:idUserAdmin/productos/:idProducto",
-  midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
-  midValidarRolAdmin,
-  actualizarProducto
+  "/users/:idAdminUser/products/:idProduct",
+  adminIdExist,
+  isAdminRole,
+  isAdminOnline,
+  editProduct
 ); //  [G]
 
 //******************************************** [H]
 /**
  * @swagger
- * /users/{idUserAdmin}/productos/{idProducto}:
+ * /users/{idAdminUser}/products/{idProduct}:
  *  delete:
  *    tags:
  *      - Productos
  *    summary: El admin puede eliminar productos de la base de datos de productos por id
  *    description: Permite eliminar un producto
  *    parameters:
- *    - name: idUserAdmin
+ *    - name: idAdminUser
  *      description: Id del userAdmin
  *      in: path
  *      required: true
  *      type: integer
- *    - name: idProducto
+ *    - name: idProduct
  *      description: Id del Producto
  *      in: path
  *      required: true
@@ -133,11 +145,11 @@ router.put(
  */
 
 router.delete(
-  "/users/:idUserAdmin/productos/:idProducto",
-  midValidarExistenciaDeUsuarioAdmin,
-  midValidarEstadoAdmin,
-  midValidarRolAdmin,
-  eliminarProducto
+  "/users/:idAdminUser/products/:idProduct",
+  adminIdExist,
+  isAdminRole,
+  isAdminOnline,
+  deleteProductbyId
 ); //[H];
 
 module.exports = router;
