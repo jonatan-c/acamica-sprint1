@@ -8,57 +8,41 @@ const jwt = require("jsonwebtoken");
 const usersCtrl = {};
 ///*********************************** [A] y [L]
 usersCtrl.createUser = async (req, res, next) => {
+  const resp = req.body.password1;
+  const salt = await bcryptjs.genSalt(10);
+  const respHash = await bcryptjs.hash(resp, salt);
   const newUser = await usersDB.build({
     name: req.body.name,
     email: req.body.email,
-    password1: req.body.password1,
+    password1: respHash,
   });
+  const result = await newUser.save();
 
-  res.json({ mensaje: "User created successfully" });
+  // Crear y firmar el JWT
+  const payload = {
+    result: {
+      id_user: result.id_user,
+    },
+  };
+  // firmar el JWT
+  jwt.sign(
+    payload,
+    process.env.SECRETA,
+    {
+      expiresIn: 3600, //1hora
+    },
+    (error, token) => {
+      if (error) throw error;
+
+      //Mensaje de confirmacion
+      res.json({ message: "User created", token });
+    }
+  );
 };
 
-// const Usuario = require("../models/Usuario");
+usersCtrl.login = async (req, res, next) => {};
+module.exports = usersCtrl;
 
-// exports.crearUsuario = async (req, res) => {
-//   //revisar si hay errores
-//   const { email, password } = req.body;
-//   try {
-//     //crea el nuevo usuario
-//     usuario = new Usuario(req.body);
-
-//     //Hashear el password
-//     const salt = await bcryptjs.genSalt(10);
-//     usuario.password = await bcryptjs.hash(password, salt);
-
-//     // guarda el usuario
-//     await usuario.save();
-
-//     // Crear y firmar el JWT
-//     const payload = {
-//       usuario: {
-//         id: usuario.id,
-//       },
-//     };
-
-//     // firmar el JWT
-//     jwt.sign(
-//       payload,
-//       process.env.SECRETA,
-//       {
-//         expiresIn: 3600, //1hora
-//       },
-//       (error, token) => {
-//         if (error) throw error;
-
-//         //Mensaje de confirmacion
-//         res.json({ token });
-//       }
-//       );
-//     } catch (error) {
-//       console.log(error);
-//     res.status(400).send("Hubo un error");
-//   }
-// }
 // //******************** SIN USO ACTUALMENTE
 
 // usersCtrl.eliminarUsuario = (req, res, next) => {
@@ -93,4 +77,3 @@ usersCtrl.createUser = async (req, res, next) => {
 // usersCtrl.iniciarSesion = (req, res, next) => {
 //   res.json({ mensaje: `Hola ${req.body.nombre} , gracias por logear!!!` });
 // };
-module.exports = usersCtrl;

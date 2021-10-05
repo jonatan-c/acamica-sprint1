@@ -1,12 +1,13 @@
-// rutas para autenticar usuarios
-const express = require("express");
-const router = express.Router();
-const auth = require("../middleware/auth");
-const authController = require("../controllers/authController");
+const { Router } = require("express");
+const router = Router();
+const auth = require("../middlewares/users/auth");
+const {
+  autenticarUsuario,
+  usuarioAutenticado,
+} = require("../controllers/auth.controller");
 
 //
 
-router.post(authController.autenticarUsuario);
-router.get("/", auth, authController.usuarioAutenticado);
-
+router.post("/auth", autenticarUsuario);
+router.get("/auth", auth, usuarioAutenticado);
 module.exports = router;
