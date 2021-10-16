@@ -6,6 +6,8 @@ const {
   isAdminRole,
   isAdminOnline,
 } = require("../middlewares/users/usersAdmin.middlewares");
+
+const { auth, isAdmin } = require("../middlewares/users/auth.middlewares");
 // **************
 const {
   isIdinDB,
@@ -22,6 +24,7 @@ const {
 } = require("../controllers/paymentMethods.controller");
 
 //************************************* [Q]
+
 /**
  * @swagger
  * /users/{idAdminUser}/paymentMethods:
@@ -40,8 +43,11 @@ const {
  *      200:
  *        description: Success
  */
+
 router.get(
   "/users/:idAdminUser/paymentMethods",
+  auth,
+  isAdmin,
   adminIdExist,
   isAdminRole,
   isAdminOnline,
@@ -74,6 +80,8 @@ router.get(
  */
 router.post(
   "/users/:idAdminUser/paymentMethods",
+  auth,
+  isAdmin,
   adminIdExist,
   isAdminRole,
   isAdminOnline,
@@ -112,6 +120,8 @@ router.post(
  */
 router.put(
   "/users/:idAdminUser/paymentMethods/:idPaymentMethod",
+  auth,
+  isAdmin,
   adminIdExist,
   isAdminRole,
   isAdminOnline,
@@ -145,6 +155,8 @@ router.put(
  */
 router.delete(
   "/users/:idAdminUser/paymentMethods/:idPaymentMethod",
+  auth,
+  isAdmin,
   adminIdExist,
   isAdminRole,
   isAdminOnline,

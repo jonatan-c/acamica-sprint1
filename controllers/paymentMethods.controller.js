@@ -5,7 +5,11 @@ const PaymentMethodsDB = require("../models/PaymentMethods")(
   connection,
   Sequelize
 );
-
+const redis = require("redis");
+const client = redis.createClient({
+  host: "localhost",
+  port: 6379,
+});
 const paymentMethodsCtrl = {};
 //************************************* [N]
 paymentMethodsCtrl.addPaymentMethod = async (req, res, next) => {
@@ -52,8 +56,29 @@ paymentMethodsCtrl.deletePaymentMethod = async (req, res, next) => {
 
 //************************************** [Q]
 paymentMethodsCtrl.getIdPaymentMethods = async (req, res, next) => {
-  const result = await PaymentMethodsDB.findAll();
-  res.json(result);
+  // client.get("paymentMethods", async (error, rep) => {
+  //   if (error) {
+  //     return res.json(error);
+  //   }
+  //   if (rep) {
+  //     return res.json(JSON.parse(rep));
+  //   }
+  // });
+
+  const paymentMethods = await PaymentMethodsDB.findAll();
+  // client.set(
+  //   "paymentMethods",
+  //   JSON.stringify(paymentMethods),
+  //   "EX",
+  //   10 * 60 * 60,
+  //   (error, rep) => {
+  //     if (error) {
+  //       return res.json(error);
+  //     }
+  //     console.log(rep);
+  //   }
+  // );
+  res.json(paymentMethods);
 };
 
 module.exports = paymentMethodsCtrl;

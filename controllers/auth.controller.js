@@ -17,12 +17,17 @@ authCtrl.autenticarUsuario = async (req, res) => {
     if (!passCorrecto) {
       return res.status(404).json({ msg: "Password Incorrecto" });
     }
-
-    // si todo es correcto
-    // Crear y firmar el JWT
     const payload = {
       id_user: usuario.id_user,
+      role: usuario.role,
     };
+    usuario = await usersDB.update(
+      { state: "online" },
+      { where: { email: email } }
+    );
+    // si todo es correcto
+    // Crear y firmar el JWT
+    console.log(payload);
 
     // firmar el JWT
     jwt.sign(
@@ -45,16 +50,20 @@ authCtrl.autenticarUsuario = async (req, res) => {
 
 // obtiene que usuario esta autenticado
 authCtrl.usuarioAutenticado = async (req, res) => {
-  try {
-    // aca falta la menera que muestre todos los datos, menos el de password
-    const usuario = await usersDB.findOne({
-      where: { email: req.body.email },
-    });
-    res.json({ message: "Login successfully, you can buy! ", usuario });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ msg: "Hubo un error" });
-  }
+  const result = await usersDB.findAll();
+  res.json(result);
+
+  // try {
+  //   // aca falta la menera que muestre todos los datos, menos el de password
+  //   const usuario = await usersDB.findOne({
+  //     where: { email: req.body.email },
+  //   });
+  //   res.json({ message: "Login successfully, you can buy! ", usuario });
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).json({ msg: "Hubo un error" });
+  // }
+  console.log("paso midle");
 };
 
 module.exports = authCtrl;

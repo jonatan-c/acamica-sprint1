@@ -7,6 +7,8 @@ const {
   isAdminOnline,
 } = require("../middlewares/users/usersAdmin.middlewares");
 
+const { auth, isAdmin } = require("../middlewares/users/auth.middlewares");
+
 const {
   getProducts,
   addProduct,
@@ -65,6 +67,8 @@ router.get("/products", getProducts);
 
 router.post(
   "/users/:idAdminUser/productsAdmin",
+  auth,
+  isAdmin,
   adminIdExist,
   isAdminRole,
   isAdminOnline,
@@ -113,6 +117,8 @@ router.post(
 
 router.put(
   "/users/:idAdminUser/products/:idProduct",
+  auth,
+  isAdmin,
   adminIdExist,
   isAdminRole,
   isAdminOnline,

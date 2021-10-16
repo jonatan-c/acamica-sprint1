@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 6001;
+const port = 4000;
 const helmet = require("helmet");
 
 const productsRoutes = require("./routes/products.routes");

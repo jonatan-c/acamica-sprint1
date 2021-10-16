@@ -19,28 +19,27 @@ usersCtrl.createUser = async (req, res, next) => {
   const result = await newUser.save();
 
   // Crear y firmar el JWT
-  const payload = {
-    result: {
-      id_user: result.id_user,
-    },
-  };
-  // firmar el JWT
-  jwt.sign(
-    payload,
-    process.env.SECRETA,
-    {
-      expiresIn: 3600, //1hora
-    },
-    (error, token) => {
-      if (error) throw error;
+  // const payload = {
+  //   result: {
+  //     id_user: result.id_user,
+  //   },
+  // };
+  // // firmar el JWT
+  // jwt.sign(
+  //   payload,
+  //   process.env.SECRETA,
+  //   {
+  //     expiresIn: 3600, //1hora
+  //   },
+  //   (error, token) => {
+  //     if (error) throw error;
 
-      //Mensaje de confirmacion
-      res.json({ message: "User created", token });
-    }
-  );
+  //Mensaje de confirmacion
+  res.json({ message: "User created" });
+  // }
+  // );
 };
 
-usersCtrl.login = async (req, res, next) => {};
 module.exports = usersCtrl;
 
 // //******************** SIN USO ACTUALMENTE

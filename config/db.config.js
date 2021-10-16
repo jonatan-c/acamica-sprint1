@@ -9,6 +9,7 @@ const connection = new Sequelize(
     host: process.env.MYSQL_HOST,
     port: process.env.MYSQL_PORT,
     dialect: "mysql",
+    logging: false,
     define: {
       freezeTableName: true,
     },
