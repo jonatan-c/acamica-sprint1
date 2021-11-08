@@ -41,39 +41,22 @@ const {
  *    responses:
  *      200:
  *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                id:
+ *                  type: integer
+ *                name:
+ *                  type: string
+ *      400:
+ *        description: The specified user ID is invalid (e.g. not a number)
+ *      404:
+ *        description: A user with the specified ID was not found
+ *
  */
 //  midValidarEmail
 router.post("/users/register", isEmailValid, createUser); // [A] y [L]
-///****************************[B]
-/**
- * @swagger
- * /users/login:
- *  post:
- *    tags:
- *      - Crear cuenta y logear
- *    summary: Permite iniciar sesion
- *    description: inicia sesion en la aplicacion
- *    parameters:
- *    - name: nombre
- *      description: nombre del usuario
- *      in: formData
- *      required: true
- *      type: string
- *    - name: password
- *      description: password del usuario
- *      in: formData
- *      required: true
- *      type: string
- *    - name: email
- *      description: email del usuario
- *      in: formData
- *      required: true
- *      type: string
- *    responses:
- *      200:
- *        description: Success
- */
-
-// router.post("/users/login", midValidarLogin, iniciarSesion); // [B]
 
 module.exports = router;

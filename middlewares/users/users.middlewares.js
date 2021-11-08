@@ -1,7 +1,6 @@
 require("dotenv").config();
-const Sequelize = require("sequelize");
-const connection = require("../../config/db.config");
-const usersDB = require("../../models/Users")(connection, Sequelize);
+
+const usersDB = require("../../models/Users");
 
 async function isEmailValid(req, res, next) {
   const userEmail = await usersDB.findOne({ where: { email: req.body.email } });

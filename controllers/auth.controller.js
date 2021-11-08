@@ -1,9 +1,5 @@
 require("dotenv").config();
-const Sequelize = require("sequelize");
-const connection = require("../config/db.config");
-
-const usersDB = require("../models/Users")(connection, Sequelize);
-
+const usersDB = require("../models/Users");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -40,7 +36,7 @@ authCtrl.autenticarUsuario = async (req, res) => {
         if (error) throw error;
 
         //Mensaje de confirmacion
-        res.json({ message: "Login correct", token });
+        res.json(token);
       }
     );
   } catch (error) {
@@ -50,7 +46,9 @@ authCtrl.autenticarUsuario = async (req, res) => {
 
 // obtiene que usuario esta autenticado
 authCtrl.usuarioAutenticado = async (req, res) => {
-  const result = await usersDB.findAll();
+  const result = await usersDB.findAll({
+    include: ["address"],
+  });
   res.json(result);
 
   // try {

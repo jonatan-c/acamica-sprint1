@@ -1,16 +1,15 @@
 const { Router } = require("express");
 const router = Router();
 
-// const midValidarExistenciaDeUsuario = require("../middlewares/users/midValidarExistenciaDeUsuario");
-// const midValidarEstadoOnLine = require("../middlewares/users/midValidarEstadoOnLine");
-// // const midValidarExistenciaDeUsuarioAdmin = require("../middlewares/pedidos/midValidarExistenciaDeUsuarioAdmin");
-// const midValidarEstadoAdmin = require("../middlewares/pedidos/midValidarEstadoAdmin");
-// const midValidarRolAdmin = require("../middlewares/pedidos/midValidarRolAdmin");
-// const midValidarEstadoPedido = require("../middlewares/pedidos/midValidarEstadoPedido");
-// const midValidarEstadoDePedidoPosibles = require("../middlewares/pedidos/midValidarEstadoDePedidoPosibles");
-// const midValidarRolUser = require("../middlewares/pedidos/midValidarRolUser");
-// const midValidarPedidoExista = require("../middlewares/pedidos/midValidarPedidoExista");
-// const midValidarExistenciadeIDPEDIDO = require("../middlewares/pedidos/midValidarExistenciadeIDPEDIDO");
+const {
+  adminIdExist,
+  isAdminRole,
+  isAdminOnline,
+} = require("../middlewares/users/usersAdmin.middlewares");
+
+const { auth, isAdmin } = require("../middlewares/users/auth.middlewares");
+
+const { isOrderPending } = require("../middlewares/pedidos/orders.middleware");
 
 const {
   obtenerProductos,
@@ -20,7 +19,8 @@ const {
   editarPedidosIdUser,
   realizarPedido,
   eliminarPedidosIdUser,
-} = require("../controllers/pedidos.controller");
+} = require("../controllers/orders.controller");
+
 ///********************************* [C_P1] ////////////////
 /**
  * @swagger
@@ -31,6 +31,11 @@ const {
  *    summary: Lista de productos para agregar a pedidos, requiere iniciar sesion
  *    description: Permite al usuario  registrado y logeado ver TODOS LOS productos
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idUser
  *      description: Id del usuario
  *      in: path
@@ -43,8 +48,11 @@ const {
 
 router.get(
   "/users/:idUser/productos",
-  // midValidarExistenciaDeUsuario,
-  // midValidarEstadoOnLine,
+  auth,
+  isAdmin,
+  adminIdExist,
+  isAdminRole,
+  isAdminOnline,
   obtenerProductos
 );
 ///********************************* [C_P2] ////////////////
@@ -57,6 +65,11 @@ router.get(
  *    summary: Lista de productos para enviar como pedidos, requiere iniciar sesion
  *    description: Permite al usuario registrado y logeado agregar productos a su pedido
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idUser
  *      description: Id del usuario
  *      in: path
@@ -67,22 +80,22 @@ router.get(
  *      in: formData
  *      required: false
  *      type: number
- *    - name: idPedido
- *      description: idPedido
- *      in: formData
- *      required: false
- *      type: number
  *    - name: cantidad
  *      description: cantidad del producto requerido
  *      in: formData
- *      required: true
+ *      required: false
  *      type: number
  *    - name: direccion
  *      description: direccion para enviar el pedido
  *      in: formData
- *      required: true
+ *      required: false
  *      type: string
- *    - name: idMedioDePago
+ *    - name: id_payment_method
+ *      description: Id del medio de pago, para buscar en base de datos
+ *      in: formData
+ *      required: true
+ *      type: integer
+ *    - name: id_order_status
  *      description: Id del medio de pago, para buscar en base de datos
  *      in: formData
  *      required: true
@@ -93,6 +106,7 @@ router.get(
  */
 router.post(
   "/users/:idUser/productos",
+  auth,
   // midValidarExistenciaDeUsuario,
   // midValidarEstadoOnLine,
   // midValidarRolUser,
@@ -215,17 +229,23 @@ router.delete(
 ); // [S]
 
 ////////////////////////////////////// [E_1] ***************************************
+// ---------------------------------- [ADMIN]
 
 /**
  * @swagger
- * /users/{idUserAdmin}/pedidosAdmin:
+ * /users/{idAdminUser}/pedidosAdmin:
  *  get:
  *    tags:
  *      - Pedidos Admin
  *    summary: Permite al admin ver TODOS los pedidos
  *    description: Permite al admin agregar nuevos productos
  *    parameters:
- *    - name: idUserAdmin
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
+ *    - name: idAdminUser
  *      description: Id del usuario Admin para ver todos los pedidos
  *      in: path
  *      required: true
@@ -235,23 +255,30 @@ router.delete(
  *        description: Success
  */
 router.get(
-  "/users/:idUserAdmin/pedidosAdmin",
-  // midValidarExistenciaDeUsuarioAdmin,
-  // midValidarEstadoAdmin,
-  // midValidarRolAdmin,
+  "/users/:idAdminUser/pedidosAdmin",
+  auth,
+  isAdmin,
+  adminIdExist,
+  isAdminRole,
+  isAdminOnline,
   obtenerPedidosIdUserAdmin
 ); // [E_1]
 ////////////////////////////////////// [E_2] ***************************************
 /**
  * @swagger
- * /users/{idUserAdmin}/pedidosAdmin/{idPedido}:
+ * /users/{idAdminUser}/pedidosAdmin/{idPedido}:
  *  put:
  *    tags:
  *      - Pedidos Admin
  *    summary: Permite ver UN pedido por el id
  *    description: actualiza un producto si es admin
  *    parameters:
- *    - name: idUserAdmin
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
+ *    - name: idAdminUser
  *      description: Id del userAdmin
  *      in: path
  *      required: true
@@ -261,22 +288,24 @@ router.get(
  *      in: path
  *      required: true
  *      type: integer
- *    - name: estado
+ *    - name: id_order_status
  *      description: Nuevo estado del pedido
  *      in: formData
  *      required: true
- *      type: string
+ *      type: integer
  *    responses:
  *      200:
  *        description: Success
  */
 router.put(
-  "/users/:idUserAdmin/pedidosAdmin/:idPedido"
-  // midValidarExistenciaDeUsuarioAdmin,
-  // midValidarEstadoAdmin,
-  // midValidarRolAdmin,
-  // midValidarEstadoDePedidoPosibles,
-  // editarPedidosIdUserAdmin
+  "/users/:idAdminUser/pedidosAdmin/:idPedido",
+  auth,
+  isAdmin,
+  adminIdExist,
+  isAdminRole,
+  isAdminOnline,
+  isOrderPending,
+  editarPedidosIdUserAdmin
 ); // [E_2]
 
 module.exports = router;

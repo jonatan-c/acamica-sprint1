@@ -1,11 +1,6 @@
 require("dotenv").config();
-const Sequelize = require("sequelize");
-const connection = require("../../config/db.config");
 
-const PaymentMethodsDB = require("../../models/PaymentMethods")(
-  connection,
-  Sequelize
-);
+const PaymentMethodsDB = require("../../models/PaymentMethods");
 
 async function isPaymentMethodInDB(req, res, next) {
   // const params = parseInt(req.params.idUserAdmin);

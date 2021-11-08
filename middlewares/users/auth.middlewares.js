@@ -37,7 +37,7 @@ const isAdmin = (req, res, next) => {
           next();
         } else {
           return res.json({
-            msg: "You dont have permission to payment methods",
+            msg: "You are not ADMIN",
           });
         }
       }

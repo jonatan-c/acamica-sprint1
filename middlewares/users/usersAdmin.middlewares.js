@@ -1,8 +1,6 @@
 require("dotenv").config();
-const Sequelize = require("sequelize");
-const connection = require("../../config/db.config");
 
-const usersDB = require("../../models/Users")(connection, Sequelize);
+const usersDB = require("../../models/Users");
 
 async function adminIdExist(req, res, next) {
   const params = parseInt(req.params.idAdminUser);

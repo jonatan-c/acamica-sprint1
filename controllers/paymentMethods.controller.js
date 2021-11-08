@@ -1,10 +1,6 @@
 require("dotenv").config();
-const Sequelize = require("sequelize");
-const connection = require("../config/db.config");
-const PaymentMethodsDB = require("../models/PaymentMethods")(
-  connection,
-  Sequelize
-);
+
+const PaymentMethodsDB = require("../models/PaymentMethods");
 const redis = require("redis");
 const client = redis.createClient({
   host: "localhost",

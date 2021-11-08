@@ -1,7 +1,7 @@
 require("dotenv").config();
-const Sequelize = require("sequelize");
+const { Sequelize } = require("sequelize");
 
-const connection = new Sequelize(
+const sequelize = new Sequelize(
   process.env.MYSQL_DB_NAME,
   process.env.MYSQL_USER,
   process.env.MYSQL_PASS,
@@ -15,5 +15,16 @@ const connection = new Sequelize(
     },
   }
 );
+const isDatabaseOn = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("sequelize has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
+isDatabaseOn();
 
-module.exports = connection;
+// sequelize.sync({ force: true });
+
+module.exports = sequelize;

@@ -1,7 +1,6 @@
 require("dotenv").config();
-const Sequelize = require("sequelize");
-const connection = require("../config/db.config");
-const usersDB = require("../models/Users")(connection, Sequelize);
+
+const usersDB = require("../models/Users");
 
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -15,6 +14,8 @@ usersCtrl.createUser = async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password1: respHash,
+    role: "user",
+    state: "offline",
   });
   const result = await newUser.save();
 

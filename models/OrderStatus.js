@@ -1,10 +1,10 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/db.config");
 
-const PaymentMethodsDB = sequelize.define(
-  "payment_methods",
+const orderStatusDB = sequelize.define(
+  "order_status",
   {
-    id_payment_method: {
+    id_order_status: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -13,9 +13,10 @@ const PaymentMethodsDB = sequelize.define(
       type: DataTypes.STRING,
     },
   },
+
   {
     timestamps: false,
   }
 );
 
-module.exports = PaymentMethodsDB;
+module.exports = orderStatusDB;

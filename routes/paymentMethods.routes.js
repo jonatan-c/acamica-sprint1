@@ -34,6 +34,11 @@ const {
  *    summary: The Admin can see every payment methods in the database.
  *    description: Admin can see every
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idAdminUser
  *      description: Id user Admin
  *      in: path
@@ -64,6 +69,11 @@ router.get(
  *    summary: The admin can add news payments methods.
  *    description: The admin can add news payments methods
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idAdminUser
  *      description: Id Admin
  *      in: path
@@ -99,6 +109,11 @@ router.post(
  *    summary: The admin can modify the payment method by id.
  *    description: Edita un medio de pago
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idAdminUser
  *      description: id admin
  *      in: path
@@ -139,6 +154,11 @@ router.put(
  *    summary: Admin can delete a payment method
  *    description: if user is admin, can delete a payment method
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idAdminUser
  *      description: Id admin
  *      in: path

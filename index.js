@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
-const port = 4000;
+const port = 4001;
 const helmet = require("helmet");
+
+const db = require("./models/Asociaciones");
+db.sequelize.sync({ alter: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 const productsRoutes = require("./routes/products.routes");
 const usersRoutes = require("./routes/users.routes");
-const pedidosRoutes = require("./routes/pedidos.routes");
+const ordersRoutes = require("./routes/orders.routes");
 const paymentMethods = require("./routes/paymentMethods.routes");
 const authRoutes = require("./routes/auth.routes");
 
@@ -22,10 +27,10 @@ const swaggerOptions = {
   },
   apis: [
     "./routes/users.routes.js",
+    "./routes/auth.routes.js",
     "./routes/products.routes.js",
-    "./routes/pedidos.routes.js",
+    "./routes/orders.routes.js",
     "./routes/paymentMethods.routes.js",
-    "./routes/auth.routes",
   ],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -46,7 +51,7 @@ app.use("/", productsRoutes);
 //********************************************* USERS **********************
 app.use("/", usersRoutes);
 //********************************************* PEDIDOS **********************
-// app.use("/", pedidosRoutes);
+app.use("/", ordersRoutes);
 //********************************************* PAYMENT METHODS **********************
 app.use("/", paymentMethods);
 

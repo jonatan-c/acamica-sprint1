@@ -1,40 +1,26 @@
 require("dotenv").config();
-const Sequelize = require("sequelize");
-const connection = require("../config/db.config");
-const ProductsDB = require("../models/Products")(connection, Sequelize);
+
+const ProductsDB = require("../models/Products");
 const redis = require("redis");
-const client = redis.createClient({
-  host: "localhost",
-  port: 6379,
-});
+const client = redis.createClient();
+
 const productsCtrl = {};
 
 //*************************************** [SIN USAR]
 productsCtrl.getProducts = async (req, res, next) => {
-  client.get("allProducts", async (error, rep) => {
-    if (error) {
-      return res.json(error);
-    }
-    if (rep) {
-      console.log("no esta en cache");
-      return res.json(JSON.parse(rep));
-    }
-  });
   const allProducts = await ProductsDB.findAll();
   client.set(
-    "allProducts",
+    "products",
     JSON.stringify(allProducts),
     "EX",
     10 * 60 * 60,
-    (error, rep) => {
-      if (error) {
-        return res.json(error);
+    (err) => {
+      if (err) {
+        console.log(err);
       }
-      console.log(rep);
-      console.log("esta en cache");
     }
   );
-  // res.json(allProducts);
+  res.json(allProducts);
 };
 //******************************************** [F]
 productsCtrl.addProduct = async (req, res, next) => {

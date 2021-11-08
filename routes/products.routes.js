@@ -9,6 +9,8 @@ const {
 
 const { auth, isAdmin } = require("../middlewares/users/auth.middlewares");
 
+const { productsCache } = require("../middlewares/cache/productsCache");
+
 const {
   getProducts,
   addProduct,
@@ -29,7 +31,7 @@ const {
  *        description: Success
  */
 
-router.get("/products", getProducts);
+router.get("/products", productsCache, getProducts);
 //******************************************** [F]
 /**
  * @swagger
@@ -40,6 +42,11 @@ router.get("/products", getProducts);
  *    summary: El admin puede agregar productos a la base de datos de productos
  *    description: Permite al admin agregar nuevos productos
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idAdminUser
  *      description: Id del usuario
  *      in: path
@@ -85,6 +92,11 @@ router.post(
  *    summary: El admin puede editar productos de la base de datos de productos por id
  *    description: Permite al admin editar un producto por id
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idAdminUser
  *      description: Id del userAdmin
  *      in: path
@@ -135,6 +147,11 @@ router.put(
  *    summary: El admin puede eliminar productos de la base de datos de productos por id
  *    description: Permite eliminar un producto
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idAdminUser
  *      description: Id del userAdmin
  *      in: path

@@ -1,10 +1,10 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/db.config");
 
-const PaymentMethodsDB = sequelize.define(
-  "payment_methods",
+const AdressDB = sequelize.define(
+  "address",
   {
-    id_payment_method: {
+    id_address: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -12,10 +12,14 @@ const PaymentMethodsDB = sequelize.define(
     name: {
       type: DataTypes.STRING,
     },
+    number: {
+      type: DataTypes.INTEGER,
+    },
   },
+
   {
     timestamps: false,
   }
 );
 
-module.exports = PaymentMethodsDB;
+module.exports = AdressDB;
