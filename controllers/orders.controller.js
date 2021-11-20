@@ -46,57 +46,50 @@ pedidosCtrl.obtenerPedidosIdUser = async (req, res, next) => {
     where: { id_user: idUser },
     include: ["paymentMethods", "ordersStatus", "Products1"],
 
-    attributes: {
-      exclude: [
-        "id_user",
-        "id_payment_method",
-        "id_order_status",
-        "id_products_orders",
-      ],
-    },
+    // attributes: {
+    //   exclude: [
+    //     "id_user",
+    //     "id_payment_method",
+    //     "id_order_status",
+    //     "id_products_orders",
+    //   ],
+    // },
     // include: [{ model: table_products_orders }],
   });
   res.json(result);
 };
 
 //********************** [S y T]
-pedidosCtrl.editarPedidosIdUser = (req, res, next) => {
-  const idPedido = req.params.idPedido;
-  const idProducto = req.body.idProducto;
-  const buscar = OrdersDB.find((ped) => ped.idPedido == idPedido);
-  if (!buscar) {
-    return res.status(404).json({ mensaje: "Pedido no encontrado" });
-  } else {
-    let objetoPedidos = buscar.pedido;
-    let buscadorIdProducto = objetoPedidos.find(
-      (el) => el.idProducto == idProducto
+pedidosCtrl.editarPedidosIdUser = async (req, res, next) => {
+  const idPedido = parseInt(req.params.idPedido);
+  const idProducto = parseInt(req.params.id_Producto);
+  const idUser = parseInt(req.params.idUser);
+
+  try {
+    const result = await ordersDB.update(
+      {
+        id_payment_method: req.body.id_payment_method,
+      },
+      { where: { id_order: idPedido } }
     );
-    if (!buscadorIdProducto) {
-      return res.status(404).json({ mensaje: "Producto no encontrado" });
-    } else {
-      buscadorIdProducto.cantidad = req.body.cantidad;
-      res.json("Pedido editado Correctamente");
-    }
+    res.json({ message: "editado correctamente" });
+  } catch (error) {
+    console.log(error);
   }
 };
-pedidosCtrl.eliminarPedidosIdUser = (req, res, next) => {
-  const idPedido = req.params.idPedido;
-  const idProducto = req.body.idProducto;
-  const buscar = OrdersDB.find((ped) => ped.idPedido == idPedido);
-
-  if (!buscar) {
-    return res.status(404).json({ mensaje: "Pedido no encontrado" });
-  } else {
-    const buscarBD = buscar.pedido;
-    const productoIndex = buscarBD.findIndex(
-      (prod) => prod.idProducto === parseInt(idProducto)
-    ); //0 vs -1
-    if (productoIndex === -1) {
-      res.status(404).json({ mensaje: "Producto no encontrado" });
+pedidosCtrl.eliminarPedidosIdUser = async (req, res, next) => {
+  try {
+    const getIDOrder = parseInt(req.params.idPedido);
+    const result = await ordersDB.destroy({
+      where: { id_order: getIDOrder },
+    });
+    if (result) {
+      res.json({ message: "order deleted successfully" });
     } else {
-      buscarBD.splice(productoIndex, 1);
-      res.json({ mensaje: "Producto Eliminado Correctamente" });
+      res.status(404).json({ message: "order doesn't found in database" });
     }
+  } catch (error) {
+    console.log(error);
   }
 };
 

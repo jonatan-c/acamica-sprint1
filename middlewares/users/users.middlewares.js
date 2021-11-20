@@ -10,7 +10,22 @@ async function isEmailValid(req, res, next) {
     next();
   }
 }
-module.exports = { isEmailValid };
+async function isUserOnline(req, res, next) {
+  const params = parseInt(req.params.idUser);
+  const estado = await usersDB.findOne({
+    where: {
+      id_user: params,
+      state: "online",
+    },
+  });
+  if (estado) {
+    next();
+  } else {
+    return res.status(500).json({ mensaje: "The user isn´t ONLINE" });
+  }
+}
+
+module.exports = { isEmailValid, isUserOnline };
 
 // // por modificar
 // const usersDB = require("../../models/Users");

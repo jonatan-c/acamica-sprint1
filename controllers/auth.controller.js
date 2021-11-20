@@ -64,4 +64,18 @@ authCtrl.usuarioAutenticado = async (req, res) => {
   console.log("paso midle");
 };
 
+authCtrl.userDiscontinued = async (req, res) => {
+  try {
+    const result = await usersDB.update(
+      {
+        state: req.body.estadoUser,
+      },
+      { where: { id_user: req.body.id_user } }
+    );
+    res.json({ message: "The user is discontinued" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = authCtrl;

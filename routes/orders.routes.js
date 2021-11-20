@@ -10,6 +10,11 @@ const {
 const { auth, isAdmin } = require("../middlewares/users/auth.middlewares");
 
 const { isOrderPending } = require("../middlewares/pedidos/orders.middleware");
+const { isUserOnline } = require("../middlewares/users/users.middlewares");
+
+const {
+  hasProductsDB,
+} = require("../middlewares/products/products.middlewares");
 
 const {
   obtenerProductos,
@@ -49,10 +54,8 @@ const {
 router.get(
   "/users/:idUser/productos",
   auth,
-  isAdmin,
-  adminIdExist,
-  isAdminRole,
-  isAdminOnline,
+  hasProductsDB,
+  isUserOnline,
   obtenerProductos
 );
 ///********************************* [C_P2] ////////////////
@@ -75,11 +78,16 @@ router.get(
  *      in: path
  *      required: true
  *      type: integer
- *    - name: idProducto
- *      description: idProducto del producto que quiere agregar al pedido
+ *    - name: products
+ *      description: products del producto que quiere agregar al pedido
  *      in: formData
  *      required: false
- *      type: number
+ *      type: array
+ *      items:
+ *        type: object
+ *        properties:
+ *          id_product:
+ *            type: integer
  *    - name: cantidad
  *      description: cantidad del producto requerido
  *      in: formData
@@ -126,6 +134,11 @@ router.post(
  *    summary: Lista de pedidos de un usuario
  *    description: Permite al usuario ver todos sus pedidos, puede tener varios
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idUser
  *      description: Id del usuario
  *      in: path
@@ -135,12 +148,7 @@ router.post(
  *      200:
  *        description: Success
  */
-router.get(
-  "/users/:idUser/pedidos",
-  // midValidarExistenciaDeUsuario,
-  // midValidarEstadoOnLine,
-  obtenerPedidosIdUser
-); // [D]
+router.get("/users/:idUser/pedidos", auth, obtenerPedidosIdUser); // [D]
 
 ////////////////////////////////////// [S y T] ***************************************
 /**
@@ -152,6 +160,11 @@ router.get(
  *    summary: Editar pedido por id, permite cambiar la cantidad
  *    description: Edita un producto del pedido de un usuario logeado.
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idUser
  *      description: Id del user
  *      in: path
@@ -167,7 +180,7 @@ router.get(
  *      in: formData
  *      required: true
  *      type: integer
- *    - name: cantidad
+ *    - name: id_payment_method
  *      description: Nueva cantidad del pedido
  *      in: formData
  *      required: true
@@ -198,6 +211,11 @@ router.put(
  *    summary: Elimnar producto de pedido
  *    description: Eliminar producto de pedido
  *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
  *    - name: idUser
  *      description: Id del user
  *      in: path
