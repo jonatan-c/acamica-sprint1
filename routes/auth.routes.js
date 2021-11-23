@@ -1,7 +1,10 @@
 const { Router } = require("express");
 const router = Router();
 
-const { existIdUser } = require("../middlewares/users/users.middlewares");
+const {
+  existIdUser,
+  isUserSuspendido,
+} = require("../middlewares/users/users.middlewares");
 
 const {
   adminIdExist,
@@ -45,7 +48,7 @@ const {
  *        description: Success
  */
 
-router.post("/auth", autenticarUsuario);
+router.post("/auth", isUserSuspendido, autenticarUsuario);
 
 ///****************************El Admin puede suspender usuario
 
