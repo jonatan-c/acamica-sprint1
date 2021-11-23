@@ -1,4 +1,5 @@
 require("dotenv").config();
+const productDB = require("../../models/Products");
 
 const redis = require("redis");
 const bluebird = require("bluebird");
@@ -10,15 +11,17 @@ const client = redis.createClient({
 
 //Midlleware cache
 const productsCache = async (req, res, next) => {
+  const productsDB = await productDB.findAll();
+  const productsDBJSON = JSON.stringify(productsDB);
   const productsOnCache = await client.getAsync("products");
   //   productsOnCache !== null ? res.json(productsOnCache) : next();
-  if (productsOnCache !== null) {
-    console.log("The Products are in cache");
-    res.json(JSON.parse(productsOnCache));
-  } else {
+  if (productsOnCache !== productsDBJSON) {
     console.log("The Products are NOT in cache");
     next();
+  } else {
+    console.log("The Products are in cache");
+    res.json(JSON.parse(productsOnCache));
   }
 };
-//bien bien bien bien
+
 module.exports = { productsCache };
