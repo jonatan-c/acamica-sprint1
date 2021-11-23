@@ -27,7 +27,6 @@ productsCtrl.addProduct = async (req, res, next) => {
   const newProduct = await ProductsDB.build({
     name_product: req.body.name_product,
     price_product: parseInt(req.body.price_product),
-    quantity_product: parseInt(req.body.quantity_product) || 1,
   });
   const result = await newProduct.save();
   res.json({ mensaje: "Product added successfully, thanks admin" });

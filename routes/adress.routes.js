@@ -7,6 +7,10 @@ const {
 } = require("../middlewares/users/auth.middlewares");
 
 const {
+  isIdAddressinDBParams,
+} = require("../middlewares/address/address.middlewares");
+
+const {
   getAddress,
   addAddress,
   editAddress,
@@ -116,6 +120,7 @@ router.put(
   "/users/:idUser/address/:idAddress",
   auth,
   isAuthIdUserParams,
+  isIdAddressinDBParams,
   editAddress
 );
 
@@ -151,6 +156,7 @@ router.delete(
   "/users/:idUser/address/:idAddress",
   auth,
   isAuthIdUserParams,
+  isIdAddressinDBParams,
   deleteAddress
 );
 

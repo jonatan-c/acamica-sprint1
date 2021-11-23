@@ -7,7 +7,16 @@ const {
   isAdminOnline,
 } = require("../middlewares/users/usersAdmin.middlewares");
 
-const { auth, isAdmin } = require("../middlewares/users/auth.middlewares");
+const {
+  auth,
+  isAdmin,
+  isAuthIdAdminUserParams,
+} = require("../middlewares/users/auth.middlewares");
+
+const {
+  hasProductsDB,
+  isIdProductInDb,
+} = require("../middlewares/products/products.middlewares");
 
 const { productsCache } = require("../middlewares/cache/productsCache");
 
@@ -23,9 +32,9 @@ const {
  * /products:
  *  get:
  *    tags:
- *      - Productos
- *    summary: Lista de todos los productos, para cualquier persona
- *    description: Lista de todos los productos para personas sin cuenta creada
+ *      - Products Admin
+ *    summary: list of products in the store for all users
+ *    description: list of products in the store for all users
  *    responses:
  *      200:
  *        description: Success
@@ -38,9 +47,9 @@ router.get("/products", productsCache, getProducts);
  * /users/{idAdminUser}/productsAdmin:
  *  post:
  *    tags:
- *      - Productos
- *    summary: El admin puede agregar productos a la base de datos de productos
- *    description: Permite al admin agregar nuevos productos
+ *      - Products Admin
+ *    summary: add a new product to the store if the user is an admin
+ *    description: add a new product to the store if the user is an admin
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -48,24 +57,19 @@ router.get("/products", productsCache, getProducts);
  *      dataType : string
  *      in : header
  *    - name: idAdminUser
- *      description: Id del usuario
+ *      description: id of the admin user
  *      in: path
  *      required: true
  *      type: integer
  *    - name: name_product
- *      description: nombre del nuevo producto a agregar
+ *      description: name of the product
  *      in: formData
  *      required: true
  *      type: string
  *    - name: price_product
- *      description: precio del nuevo producto
+ *      description: price of the product
  *      in: formData
  *      required: true
- *      type: number
- *    - name: quantity_product
- *      description: precio del nuevo producto
- *      in: formData
- *      required: false
  *      type: number
  *    responses:
  *      200:
@@ -88,9 +92,9 @@ router.post(
  * /users/{idAdminUser}/products/{idProduct}:
  *  put:
  *    tags:
- *      - Productos
- *    summary: El admin puede editar productos de la base de datos de productos por id
- *    description: Permite al admin editar un producto por id
+ *      - Products Admin
+ *    summary: edit a product if the user is an admin and the product exists
+ *    description: edit a product if the user is an admin and the product exists
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -98,30 +102,25 @@ router.post(
  *      dataType : string
  *      in : header
  *    - name: idAdminUser
- *      description: Id del userAdmin
+ *      description: id of the admin user
  *      in: path
  *      required: true
  *      type: integer
  *    - name: idProduct
- *      description: idProduct del producto, para comprobar que exista
+ *      description: id of the product
  *      in: path
  *      required: true
  *      type: integer
  *    - name: name_product
- *      description: Nuevo nombre del producto
+ *      description: name of the product to edit
  *      in: formData
  *      required: true
  *      type: string
  *    - name: price_product
- *      description: Nuevo precio del producto
+ *      description: price of the product to edit
  *      in: formData
  *      required: true
  *      type: integer
- *    - name: quantity_product
- *      description: precio del nuevo producto
- *      in: formData
- *      required: false
- *      type: number
  *    responses:
  *      200:
  *        description: Success
@@ -134,6 +133,8 @@ router.put(
   adminIdExist,
   isAdminRole,
   isAdminOnline,
+  isIdProductInDb,
+  hasProductsDB,
   editProduct
 ); //  [G]
 
@@ -143,9 +144,9 @@ router.put(
  * /users/{idAdminUser}/products/{idProduct}:
  *  delete:
  *    tags:
- *      - Productos
- *    summary: El admin puede eliminar productos de la base de datos de productos por id
- *    description: Permite eliminar un producto
+ *      - Products Admin
+ *    summary: delete a product if the user is an admin and the product exists
+ *    description: delete a product if the user is an admin and the product exists
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -153,12 +154,12 @@ router.put(
  *      dataType : string
  *      in : header
  *    - name: idAdminUser
- *      description: Id del userAdmin
+ *      description: id of the admin user
  *      in: path
  *      required: true
  *      type: integer
  *    - name: idProduct
- *      description: Id del Producto
+ *      description: id of the product
  *      in: path
  *      required: true
  *      type: integer
@@ -169,9 +170,14 @@ router.put(
 
 router.delete(
   "/users/:idAdminUser/products/:idProduct",
+  auth,
+  isAdmin,
   adminIdExist,
   isAdminRole,
   isAdminOnline,
+  isAuthIdAdminUserParams,
+  isIdProductInDb,
+  hasProductsDB,
   deleteProductbyId
 ); //[H];
 

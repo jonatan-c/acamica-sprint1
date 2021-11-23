@@ -7,7 +7,11 @@ const {
   isAdminOnline,
 } = require("../middlewares/users/usersAdmin.middlewares");
 
-const { auth, isAdmin } = require("../middlewares/users/auth.middlewares");
+const {
+  auth,
+  isAdmin,
+  isAuthIdUserParams,
+} = require("../middlewares/users/auth.middlewares");
 
 const {
   isOrderPending,
@@ -121,6 +125,7 @@ router.get(
 router.post(
   "/users/:idUser/order",
   auth,
+  isAuthIdUserParams,
   isUserOnline,
   isIdinDBPM,
   isIdAddressinDB,
@@ -170,6 +175,7 @@ router.post(
 router.post(
   "/users/:idUser/order/addproducts",
   auth,
+  isAuthIdUserParams,
   isOrderInDB,
   hasProductsDB,
   associateProducts
@@ -199,7 +205,7 @@ router.post(
  *      200:
  *        description: Success
  */
-router.get("/users/:idUser/orders", auth, getOrderByIdUser); // [D]
+router.get("/users/:idUser/orders", auth, isAuthIdUserParams, getOrderByIdUser); // [D]
 
 ////////////////////////////////////// [S y T] ***************************************
 /**
@@ -244,6 +250,7 @@ router.get("/users/:idUser/orders", auth, getOrderByIdUser); // [D]
 router.put(
   "/users/:idUser/orders/:idOrder/product/:idProduct",
   auth,
+  isAuthIdUserParams,
   isOrderInDBparams,
   isOrderPending,
 
@@ -287,9 +294,11 @@ router.put(
 router.delete(
   "/users/:idUser/orders/:idOrder/product/:idProduct",
   auth,
+  isAuthIdUserParams,
   isOrderInDBparams,
   isOrderPending,
   isOrderProductInDBparams,
+
   eliminarPedidosIdUser
 ); // [S]
 
@@ -370,6 +379,7 @@ router.put(
   isAdminRole,
   isAdminOnline,
   isOrderPending,
+  isIdOrderStatusinDB,
   editarPedidosIdUserAdmin
 );
 

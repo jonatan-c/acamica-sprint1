@@ -7,10 +7,23 @@ async function hasProductsDB(req, res, next) {
   if (result) {
     next();
   } else {
-    return res.json({ message: "No hay productos" });
+    return res.json({ message: "There are no products in the database" });
+  }
+}
+
+async function isIdProductInDb(req, res, next) {
+  const getIdProduct = parseInt(req.params.idProduct);
+  const result = await productsDB.findOne({
+    where: { id_product: getIdProduct },
+  });
+  if (result) {
+    next();
+  } else {
+    return res.json({ message: "This product does not exist" });
   }
 }
 
 module.exports = {
   hasProductsDB,
+  isIdProductInDb,
 };
