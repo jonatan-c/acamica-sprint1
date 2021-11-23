@@ -1,8 +1,6 @@
 ## Acamica-Backend-Sprint-Project-02
 
-### Introducciónes
-
-API para app de un restaurante.
+### API para app de un restaurante.
 
 ### Instrucciones de instalación
 
