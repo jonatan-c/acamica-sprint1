@@ -4,6 +4,7 @@ const router = Router();
 const {
   existIdUser,
   isUserSuspendido,
+  isEmailInDB,
 } = require("../middlewares/users/users.middlewares");
 
 const {
@@ -48,7 +49,7 @@ const {
  *        description: Success
  */
 
-router.post("/auth", isUserSuspendido, autenticarUsuario);
+router.post("/auth", isEmailInDB, isUserSuspendido, autenticarUsuario);
 
 ///****************************El Admin puede suspender usuario
 

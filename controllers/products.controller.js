@@ -59,6 +59,7 @@ productsCtrl.editProduct = async (req, res, next) => {
   const result = await ProductsDB.update(
     {
       name_product: req.body.name_product,
+      price_product: parseInt(req.body.price_product),
     },
     { where: { id_product: getIdProduct } }
   );

@@ -52,4 +52,19 @@ async function isUserSuspendido(req, res, next) {
   }
 }
 
-module.exports = { isEmailValid, isUserOnline, existIdUser, isUserSuspendido };
+async function isEmailInDB(req, res, next) {
+  const email = await usersDB.findOne({ where: { email: req.body.email } });
+  if (email) {
+    next();
+  } else {
+    return res.status(500).json({ mensaje: "The email doesn´t exist" });
+  }
+}
+
+module.exports = {
+  isEmailValid,
+  isUserOnline,
+  existIdUser,
+  isUserSuspendido,
+  isEmailInDB,
+};
