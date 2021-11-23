@@ -19,22 +19,22 @@ const {
  * /users/register:
  *  post:
  *    tags:
- *      - Crear cuenta y logear
- *    summary: Permite crear cuenta
- *    description: crea un usuario
+ *      - Register
+ *    summary: You can register a new user
+ *    description: You can register a new user
  *    parameters:
  *    - name: name
- *      description: nombre del usuario
+ *      description: Name of the user
  *      in: formData
  *      required: true
  *      type: string
  *    - name: password1
- *      description: password del usuario
+ *      description: password of the user
  *      in: formData
  *      required: true
  *      type: string
  *    - name: email
- *      description: email del usuario
+ *      description: email of the user
  *      in: formData
  *      required: true
  *      type: string
@@ -56,7 +56,7 @@ const {
  *        description: A user with the specified ID was not found
  *
  */
-//  midValidarEmail
+
 router.post("/users/register", isEmailValid, createUser); // [A] y [L]
 
 module.exports = router;

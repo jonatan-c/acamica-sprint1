@@ -2,17 +2,11 @@ const ordersDB = require("../models/Orders");
 const ordersStatusDB = require("../models/OrderStatus");
 const productosDB = require("../models/Products");
 const table_products_ordersDB = require("../models/table_products_orders");
-console.log(table_products_ordersDB);
+const addressDB = require("../models/Address");
 
 const pedidosCtrl = {};
-//
-//
-//
-//
-//
 
 // //************************************ [C_P1] ***
-// "/users/:idUser/productos"
 pedidosCtrl.getProducts = async (req, res, next) => {
   const result = await productosDB.findAll();
   res.json(result);
@@ -25,6 +19,7 @@ pedidosCtrl.createOrder = async (req, res, next) => {
       id_payment_method: req.body.id_payment_method,
       id_user: req.params.idUser,
       id_order_status: req.body.id_order_status,
+      id_address: req.body.id_address,
     });
     res.json("Order created successfully ");
   } catch (error) {
@@ -50,7 +45,7 @@ pedidosCtrl.getOrderByIdUser = async (req, res, next) => {
   const idUser = req.params.idUser;
   const result = await ordersDB.findAll({
     where: { id_user: idUser },
-    include: ["paymentMethods", "ordersStatus", "Products1"],
+    include: ["paymentMethods", "ordersStatus", "Products1", "address2"],
   });
   res.json(result);
 };
@@ -76,22 +71,13 @@ pedidosCtrl.editOrderIdByUser = async (req, res, next) => {
 };
 pedidosCtrl.eliminarPedidosIdUser = async (req, res, next) => {
   try {
-    const pedidoEncontrado = await ordersDB.findOne({
-      where: { id_order: req.params.idPedido },
+    const result = await table_products_ordersDB.destroy({
+      where: {
+        id_product: req.params.idProduct,
+        id_order: req.params.idOrder,
+      },
     });
-    if (pedidoEncontrado) {
-      const getIDProduct = parseInt(req.params.idProduct);
-      const result = await table_products_ordersDB.destroy({
-        where: { id_product: getIDProduct },
-      });
-      if (result) {
-        res.json({ message: " eliminado successfully" });
-      } else {
-        res.status(404).json({ message: "order doesn't found in database" });
-      }
-    } else {
-      res.status(404).json({ message: "order doesn't found in database" });
-    }
+    res.json({ message: "Product deleted correctly" });
   } catch (error) {
     console.log(error);
   }
@@ -100,12 +86,14 @@ pedidosCtrl.eliminarPedidosIdUser = async (req, res, next) => {
 // ************************************  ADMIN ************************* //
 //********************** [E_1]
 pedidosCtrl.obtenerPedidosIdUserAdmin = async (req, res, next) => {
-  const result = await ordersDB.findAll();
+  const result = await ordersDB.findAll({
+    include: ["paymentMethods", "ordersStatus", "Products1", "address2"],
+  });
   res.json(result);
 };
 //********************** [E_2]
 pedidosCtrl.editarPedidosIdUserAdmin = async (req, res, next) => {
-  const idPedido = parseInt(req.params.idPedido);
+  const idPedido = parseInt(req.params.idOrder);
   try {
     const result = await ordersDB.update(
       {

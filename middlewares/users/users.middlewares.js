@@ -25,7 +25,21 @@ async function isUserOnline(req, res, next) {
   }
 }
 
-module.exports = { isEmailValid, isUserOnline };
+async function existIdUser(req, res, next) {
+  const body = parseInt(req.body.id_user);
+  const user = await usersDB.findOne({
+    where: {
+      id_user: body,
+    },
+  });
+  if (user) {
+    next();
+  } else {
+    return res.status(500).json({ mensaje: "The user doesn´t exist" });
+  }
+}
+
+module.exports = { isEmailValid, isUserOnline, existIdUser };
 
 // // por modificar
 // const usersDB = require("../../models/Users");

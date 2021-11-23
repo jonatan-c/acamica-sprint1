@@ -13,6 +13,7 @@ const {
   isOrderPending,
   isOrderInDB,
   isOrderInDBparams,
+  isOrderProductInDBparams,
 } = require("../middlewares/pedidos/orders.middleware");
 const { isUserOnline } = require("../middlewares/users/users.middlewares");
 
@@ -284,7 +285,11 @@ router.put(
  */
 
 router.delete(
-  "/users/:idUser/order/:idOrder/product/:idProduct",
+  "/users/:idUser/orders/:idOrder/product/:idProduct",
+  auth,
+  isOrderInDBparams,
+  isOrderPending,
+  isOrderProductInDBparams,
   eliminarPedidosIdUser
 ); // [S]
 
@@ -293,12 +298,12 @@ router.delete(
 
 /**
  * @swagger
- * /users/{idAdminUser}/pedidosAdmin:
+ * /users/{idAdminUser}/ordersAdmin:
  *  get:
  *    tags:
- *      - Pedidos Admin
- *    summary: Permite al admin ver TODOS los pedidos
- *    description: Permite al admin agregar nuevos productos
+ *      - Order Admin
+ *    summary: The admin can see every the orders
+ *    description: The admin can see every the orders
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -306,7 +311,7 @@ router.delete(
  *      dataType : string
  *      in : header
  *    - name: idAdminUser
- *      description: Id del usuario Admin para ver todos los pedidos
+ *      description: idAdminUser
  *      in: path
  *      required: true
  *      type: integer
@@ -315,7 +320,7 @@ router.delete(
  *        description: Success
  */
 router.get(
-  "/users/:idAdminUser/pedidosAdmin",
+  "/users/:idAdminUser/ordersAdmin",
   auth,
   isAdmin,
   adminIdExist,
@@ -326,12 +331,12 @@ router.get(
 ////////////////////////////////////// [E_2] ***************************************
 /**
  * @swagger
- * /users/{idAdminUser}/pedidosAdmin/{idPedido}:
+ * /users/{idAdminUser}/ordersAdmin/{idOrder}:
  *  put:
  *    tags:
- *      - Pedidos Admin
- *    summary: Permite ver UN pedido por el id
- *    description: actualiza un producto si es admin
+ *      - Order Admin
+ *    summary: The admin can edit the order if order status is pending
+ *    description: The admin can edit the order if order status is pending
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -339,17 +344,17 @@ router.get(
  *      dataType : string
  *      in : header
  *    - name: idAdminUser
- *      description: Id del userAdmin
+ *      description: idAdminUser
  *      in: path
  *      required: true
  *      type: integer
- *    - name: idPedido
- *      description: idPedido del pedido para editar, si se encuentra "Pendiente"
+ *    - name: idOrder
+ *      description: idOrder
  *      in: path
  *      required: true
  *      type: integer
  *    - name: id_order_status
- *      description: Nuevo estado del pedido
+ *      description: id_order_status
  *      in: formData
  *      required: true
  *      type: integer
@@ -358,7 +363,7 @@ router.get(
  *        description: Success
  */
 router.put(
-  "/users/:idAdminUser/pedidosAdmin/:idPedido",
+  "/users/:idAdminUser/ordersAdmin/:idOrder",
   auth,
   isAdmin,
   adminIdExist,
@@ -366,6 +371,6 @@ router.put(
   isAdminOnline,
   isOrderPending,
   editarPedidosIdUserAdmin
-); // [E_2]
+);
 
 module.exports = router;

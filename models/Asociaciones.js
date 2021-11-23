@@ -50,6 +50,14 @@ db.Address.belongsTo(db.UserDB, {
   as: "users",
   foreignKey: "id_user",
 });
+db.Address.hasMany(db.OrdersDB, {
+  as: "address2",
+  foreignKey: "id_address",
+});
+db.OrdersDB.belongsTo(db.Address, {
+  as: "address2",
+  foreignKey: "id_address",
+});
 
 // M:M Orders Producst
 

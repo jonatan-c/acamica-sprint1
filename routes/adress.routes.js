@@ -1,7 +1,10 @@
 const { Router } = require("express");
 const router = Router();
 
-const { auth } = require("../middlewares/users/auth.middlewares");
+const {
+  auth,
+  isAuthIdUserParams,
+} = require("../middlewares/users/auth.middlewares");
 
 const {
   getAddress,
@@ -34,7 +37,7 @@ const {
  *        description: Success
  */
 
-router.get("/users/:idUser/address", auth, getAddress);
+router.get("/users/:idUser/address", auth, isAuthIdUserParams, getAddress);
 
 /**
  * @swagger
@@ -69,7 +72,7 @@ router.get("/users/:idUser/address", auth, getAddress);
  *      200:
  *        description: Success
  */
-router.post("/users/:idUser/address", auth, addAddress);
+router.post("/users/:idUser/address", auth, isAuthIdUserParams, addAddress);
 
 /**
  * @swagger
@@ -109,7 +112,12 @@ router.post("/users/:idUser/address", auth, addAddress);
  *      200:
  *        description: Success
  */
-router.put("/users/:idUser/address/:idAddress", auth, editAddress);
+router.put(
+  "/users/:idUser/address/:idAddress",
+  auth,
+  isAuthIdUserParams,
+  editAddress
+);
 
 /**
  * @swagger
@@ -139,6 +147,11 @@ router.put("/users/:idUser/address/:idAddress", auth, editAddress);
  *      200:
  *        description: Success
  */
-router.delete("/users/:idUser/address/:idAddress", auth, deleteAddress);
+router.delete(
+  "/users/:idUser/address/:idAddress",
+  auth,
+  isAuthIdUserParams,
+  deleteAddress
+);
 
 module.exports = router;

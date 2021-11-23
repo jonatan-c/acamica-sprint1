@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const router = Router();
-// const { auth } = require("../middlewares/users/auth.middlewares");
+
+const { existIdUser } = require("../middlewares/users/users.middlewares");
+
 const {
   adminIdExist,
   isAdminRole,
@@ -23,18 +25,18 @@ const {
  *  post:
  *    tags:
  *      - Login - Auth
- *    summary: Permite iniciar sesion
- *    description: inicia sesion en la aplicacion
+ *    summary: You can login a user
+ *    description: You can login a user
  *    parameters:
  *    - name: email
  *      value : correo@correo.com
- *      description:  email del usuario
+ *      description:  Email of the user
  *      in: formData
  *      required: true
  *      type: string
  *    - name: password1
  *      value : correo
- *      description: password del usuario
+ *      description: password of the user
  *      in: formData
  *      required: true
  *      type: string
@@ -49,7 +51,7 @@ router.post("/auth", autenticarUsuario);
 
 /**
  * @swagger
- * /users/{idAdminUser}/suspenderUsuario:
+ * /users/{idAdminUser}/suspend:
  *  put:
  *    tags:
  *      - Suspencion - Auth
@@ -84,12 +86,13 @@ router.post("/auth", autenticarUsuario);
  */
 
 router.put(
-  "/users/:idAdminUser/suspenderUsuario",
+  "/users/:idAdminUser/suspend",
   auth,
   isAdmin,
   adminIdExist,
   isAdminRole,
   isAdminOnline,
+  existIdUser,
   userDiscontinued
 );
 
