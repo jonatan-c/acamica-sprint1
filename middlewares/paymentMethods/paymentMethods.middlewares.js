@@ -32,7 +32,22 @@ async function isIdinDB(req, res, next) {
   }
 }
 
+async function isIdinDBPM(req, res, next) {
+  const body = parseInt(req.body.id_payment_method);
+  const estado = await PaymentMethodsDB.findOne({
+    where: {
+      id_payment_method: body,
+    },
+  });
+  if (estado) {
+    next();
+  } else {
+    return res.json({ message: "The payment method isn´t in DB" });
+  }
+}
+
 module.exports = {
   isIdinDB,
   isPaymentMethodInDB,
+  isIdinDBPM,
 };

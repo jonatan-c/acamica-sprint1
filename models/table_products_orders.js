@@ -9,7 +9,11 @@ const table_products_ordersDB = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    quantity_product: {
+      type: Sequelize.INTEGER,
+    },
   },
+
   {
     timestamps: false,
   }

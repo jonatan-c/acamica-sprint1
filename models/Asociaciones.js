@@ -42,57 +42,17 @@ db.OrdersDB.belongsTo(db.OrderStatus, {
 });
 //******M:1 o M:M*********Relacion Domicio - Usuario
 // Posibilidad 1 : un usuairo puede tener muchos domicilio, un domicilio puede tener 1 usuario
-// db.UserDB.hasMany(db.Address, {
-//   as: "address",
-//   foreignKey: "id_user",
-// });
-// db.Address.belongsTo(db.UserDB, {
-//   as: "users",
-//   foreignKey: "id_user",
-// });
+db.UserDB.hasMany(db.Address, {
+  as: "address",
+  foreignKey: "id_user",
+});
+db.Address.belongsTo(db.UserDB, {
+  as: "users",
+  foreignKey: "id_user",
+});
 
 // M:M Orders Producst
 
-// const OrderProducts = sequelize.define("OrderProducts", {
-//   ProductId: {
-//     type: DataTypes.INTEGER,
-//     references: {
-//       model: db.ProductsDB,
-//       key: "id_product",
-//     },
-//   },
-//   OrderId: {
-//     type: DataTypes.INTEGER,
-//     references: {
-//       model: db.OrdersDB,
-//       key: "id_order",
-//     },
-//   },
-// });
-
-// db.ProductsDB.belongsToMany(db.OrdersDB, {
-//   through: "OrderProducts",
-//   // foreignKey: "id_product",
-// });
-// db.OrdersDB.belongsToMany(db.ProductsDB, {
-//   through: "OrderProducts",
-//   // foreignKey: "id_order",
-// });
-
-// Funciona y crea una tabla , id_orders_pedidos ; id_orders ; id_products
-// const table_products_orders = sequelize.define(
-//   "producs_orders",
-//   {
-//     id_products_orders: {
-//       type: DataTypes.INTEGER,
-//       primaryKey: true,
-//       autoIncrement: true,
-//     },
-//   },
-//   {
-//     timestamps: false,
-//   }
-// );
 db.OrdersDB.belongsToMany(db.ProductsDB, {
   as: "Products1",
   through: { model: db.table_products_orders, unique: false },

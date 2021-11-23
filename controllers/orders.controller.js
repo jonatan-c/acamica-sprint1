@@ -13,78 +13,82 @@ const pedidosCtrl = {};
 
 // //************************************ [C_P1] ***
 // "/users/:idUser/productos"
-pedidosCtrl.obtenerProductos = async (req, res, next) => {
+pedidosCtrl.getProducts = async (req, res, next) => {
   const result = await productosDB.findAll();
   res.json(result);
 };
 //************************************ [C_P2]
 // "/users/:idUser/productos"
-pedidosCtrl.realizarPedido = async (req, res, next) => {
+pedidosCtrl.createOrder = async (req, res, next) => {
   try {
     const resultOrder = await ordersDB.create({
       id_payment_method: req.body.id_payment_method,
       id_user: req.params.idUser,
       id_order_status: req.body.id_order_status,
     });
-    for (let i = 0; i < req.body.products.length; i++) {
-      const algo = await table_products_ordersDB.create({
-        id_order: resultOrder.id_order,
-        id_product: req.body.products[i].id_product,
-      });
-    }
+    res.json("Order created successfully ");
   } catch (error) {
     console.log(error);
   }
+};
 
-  res.send("Orden Creada");
+pedidosCtrl.associateProducts = async (req, res, next) => {
+  try {
+    const result = await table_products_ordersDB.create({
+      id_order: req.body.id_order,
+      id_product: req.body.id_product,
+      quantity_product: req.body.quantity_product,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  res.send("Productos Asociados");
 };
 
 //**********************[D]
-pedidosCtrl.obtenerPedidosIdUser = async (req, res, next) => {
+pedidosCtrl.getOrderByIdUser = async (req, res, next) => {
   const idUser = req.params.idUser;
   const result = await ordersDB.findAll({
     where: { id_user: idUser },
     include: ["paymentMethods", "ordersStatus", "Products1"],
-
-    // attributes: {
-    //   exclude: [
-    //     "id_user",
-    //     "id_payment_method",
-    //     "id_order_status",
-    //     "id_products_orders",
-    //   ],
-    // },
-    // include: [{ model: table_products_orders }],
   });
   res.json(result);
 };
 
 //********************** [S y T]
-pedidosCtrl.editarPedidosIdUser = async (req, res, next) => {
-  const idPedido = parseInt(req.params.idPedido);
-  const idProducto = parseInt(req.params.id_Producto);
-  const idUser = parseInt(req.params.idUser);
-
+pedidosCtrl.editOrderIdByUser = async (req, res, next) => {
   try {
-    const result = await ordersDB.update(
+    const result = await table_products_ordersDB.update(
       {
-        id_payment_method: req.body.id_payment_method,
+        quantity_product: req.body.quantity_product,
       },
-      { where: { id_order: idPedido } }
+      {
+        where: {
+          id_product: req.params.idProduct,
+          id_order: req.params.idOrder,
+        },
+      }
     );
-    res.json({ message: "editado correctamente" });
+    res.json({ message: "Quantity changed correctly" });
   } catch (error) {
     console.log(error);
   }
 };
 pedidosCtrl.eliminarPedidosIdUser = async (req, res, next) => {
   try {
-    const getIDOrder = parseInt(req.params.idPedido);
-    const result = await ordersDB.destroy({
-      where: { id_order: getIDOrder },
+    const pedidoEncontrado = await ordersDB.findOne({
+      where: { id_order: req.params.idPedido },
     });
-    if (result) {
-      res.json({ message: "order deleted successfully" });
+    if (pedidoEncontrado) {
+      const getIDProduct = parseInt(req.params.idProduct);
+      const result = await table_products_ordersDB.destroy({
+        where: { id_product: getIDProduct },
+      });
+      if (result) {
+        res.json({ message: " eliminado successfully" });
+      } else {
+        res.status(404).json({ message: "order doesn't found in database" });
+      }
     } else {
       res.status(404).json({ message: "order doesn't found in database" });
     }

@@ -9,32 +9,52 @@ const {
 
 const { auth, isAdmin } = require("../middlewares/users/auth.middlewares");
 
-const { isOrderPending } = require("../middlewares/pedidos/orders.middleware");
+const {
+  isOrderPending,
+  isOrderInDB,
+  isOrderInDBparams,
+} = require("../middlewares/pedidos/orders.middleware");
 const { isUserOnline } = require("../middlewares/users/users.middlewares");
+
+const {
+  isIdinDBPM,
+} = require("../middlewares/paymentMethods/paymentMethods.middlewares");
+
+const {
+  isIdOrderStatusinDB,
+} = require("../middlewares/orderStatus/orderStatus.middlewares");
+
+const {
+  isIdAddressinDB,
+} = require("../middlewares/address/address.middlewares");
 
 const {
   hasProductsDB,
 } = require("../middlewares/products/products.middlewares");
 
 const {
-  obtenerProductos,
+  getProducts,
   obtenerPedidosIdUser,
   obtenerPedidosIdUserAdmin,
   editarPedidosIdUserAdmin,
   editarPedidosIdUser,
   realizarPedido,
   eliminarPedidosIdUser,
+  createOrder,
+  associateProducts,
+  getOrderByIdUser,
+  editOrderIdByUser,
 } = require("../controllers/orders.controller");
 
 ///********************************* [C_P1] ////////////////
 /**
  * @swagger
- * /users/{idUser}/productos:
+ * /users/{idUser}/products:
  *  get:
  *    tags:
- *      - Pedidos USER
- *    summary: Lista de productos para agregar a pedidos, requiere iniciar sesion
- *    description: Permite al usuario  registrado y logeado ver TODOS LOS productos
+ *      - Orders USER
+ *    summary: List of products
+ *    description: List of products if the user is online
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -42,7 +62,7 @@ const {
  *      dataType : string
  *      in : header
  *    - name: idUser
- *      description: Id del usuario
+ *      description: idUser
  *      in: path
  *      required: true
  *      type: integer
@@ -52,21 +72,21 @@ const {
  */
 
 router.get(
-  "/users/:idUser/productos",
+  "/users/:idUser/products",
   auth,
   hasProductsDB,
   isUserOnline,
-  obtenerProductos
+  getProducts
 );
 ///********************************* [C_P2] ////////////////
 /**
  * @swagger
- * /users/{idUser}/productos:
+ * /users/{idUser}/order:
  *  post:
  *    tags:
- *      - Pedidos USER
- *    summary: Lista de productos para enviar como pedidos, requiere iniciar sesion
- *    description: Permite al usuario registrado y logeado agregar productos a su pedido
+ *      - Orders USER
+ *    summary: Create order
+ *    description: Create order if the user is online
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -74,37 +94,22 @@ router.get(
  *      dataType : string
  *      in : header
  *    - name: idUser
- *      description: Id del usuario
+ *      description: idUser
  *      in: path
  *      required: true
  *      type: integer
- *    - name: products
- *      description: products del producto que quiere agregar al pedido
+ *    - name: id_address
+ *      description: id_address
  *      in: formData
  *      required: false
- *      type: array
- *      items:
- *        type: object
- *        properties:
- *          id_product:
- *            type: integer
- *    - name: cantidad
- *      description: cantidad del producto requerido
- *      in: formData
- *      required: false
- *      type: number
- *    - name: direccion
- *      description: direccion para enviar el pedido
- *      in: formData
- *      required: false
- *      type: string
+ *      type: integer
  *    - name: id_payment_method
- *      description: Id del medio de pago, para buscar en base de datos
+ *      description: id_payment_method
  *      in: formData
  *      required: true
  *      type: integer
  *    - name: id_order_status
- *      description: Id del medio de pago, para buscar en base de datos
+ *      description: id_order_status
  *      in: formData
  *      required: true
  *      type: integer
@@ -113,26 +118,23 @@ router.get(
  *        description: Success
  */
 router.post(
-  "/users/:idUser/productos",
+  "/users/:idUser/order",
   auth,
-  // midValidarExistenciaDeUsuario,
-  // midValidarEstadoOnLine,
-  // midValidarRolUser,
-  // midValidarExistenciaIDPedido,
-  realizarPedido
-
-  // 1ero hace rque por formData me envie el idPedido, si esta en base de datos, esta agregando mas, en caso contrario esta aumentando
+  isUserOnline,
+  isIdinDBPM,
+  isIdAddressinDB,
+  isIdOrderStatusinDB,
+  createOrder
 );
 
-//********************************** [D]********************************************
 /**
  * @swagger
- * /users/{idUser}/pedidos:
- *  get:
+ * /users/{idUser}/order/addproducts:
+ *  post:
  *    tags:
- *      - Pedidos USER
- *    summary: Lista de pedidos de un usuario
- *    description: Permite al usuario ver todos sus pedidos, puede tener varios
+ *      - Orders USER
+ *    summary: Add products to order
+ *    description: Add products to order if the user is online
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -140,7 +142,55 @@ router.post(
  *      dataType : string
  *      in : header
  *    - name: idUser
- *      description: Id del usuario
+ *      description: idUser
+ *      in: path
+ *      required: true
+ *      type: integer
+ *    - name: id_order
+ *      description: id_order
+ *      in: formData
+ *      required: false
+ *      type: integer
+ *    - name: id_product
+ *      description: id_product
+ *      in: formData
+ *      required: true
+ *      type: integer
+ *    - name: quantity_product
+ *      description: quantity_product
+ *      in: formData
+ *      required: true
+ *      type: integer
+ *    responses:
+ *      200:
+ *        description: Success
+ */
+
+router.post(
+  "/users/:idUser/order/addproducts",
+  auth,
+  isOrderInDB,
+  hasProductsDB,
+  associateProducts
+);
+
+//********************************** [D]********************************************
+/**
+ * @swagger
+ * /users/{idUser}/orders:
+ *  get:
+ *    tags:
+ *      - Orders USER
+ *    summary: List of orders by user
+ *    description: List of orders by user if the user is online
+ *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
+ *    - name: idUser
+ *      description: idUser
  *      in: path
  *      required: true
  *      type: integer
@@ -148,17 +198,17 @@ router.post(
  *      200:
  *        description: Success
  */
-router.get("/users/:idUser/pedidos", auth, obtenerPedidosIdUser); // [D]
+router.get("/users/:idUser/orders", auth, getOrderByIdUser); // [D]
 
 ////////////////////////////////////// [S y T] ***************************************
 /**
  * @swagger
- * /users/{idUser}/pedidos/{idPedido}:
+ * /users/{idUser}/orders/{idOrder}/product/{idProduct}:
  *  put:
  *    tags:
- *      - Pedidos USER
- *    summary: Editar pedido por id, permite cambiar la cantidad
- *    description: Edita un producto del pedido de un usuario logeado.
+ *      - Orders USER
+ *    summary: Edit order by user , quantity_product if the user is online and order is pending
+ *    description: Edit order by user , quantity_product if the user is online and order is pending
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -166,22 +216,22 @@ router.get("/users/:idUser/pedidos", auth, obtenerPedidosIdUser); // [D]
  *      dataType : string
  *      in : header
  *    - name: idUser
- *      description: Id del user
+ *      description: idUser
  *      in: path
  *      required: true
  *      type: integer
- *    - name: idPedido
- *      description: idPedido del pedido para editar, si se encuentra "Pendiente"
+ *    - name: idOrder
+ *      description: idOrder
  *      in: path
  *      required: true
  *      type: integer
- *    - name: idProducto
- *      description: idProducto del pedido para editar, si se encuentra "Pendiente"
- *      in: formData
+ *    - name: idProduct
+ *      description: idProduct
+ *      in: path
  *      required: true
  *      type: integer
- *    - name: id_payment_method
- *      description: Nueva cantidad del pedido
+ *    - name: quantity_product
+ *      description: quantity_product
  *      in: formData
  *      required: true
  *      type: integer
@@ -191,25 +241,22 @@ router.get("/users/:idUser/pedidos", auth, obtenerPedidosIdUser); // [D]
  */
 
 router.put(
-  "/users/:idUser/pedidos/:idPedido",
-  // midValidarExistenciaDeUsuario,
-  // midValidarEstadoOnLine,
-  // midValidarExistenciadeIDPEDIDO,
-  // midValidarEstadoPedido,
-  // midValidarPedidoExista,
-  editarPedidosIdUser
-); // [S]
+  "/users/:idUser/orders/:idOrder/product/:idProduct",
+  auth,
+  isOrderInDBparams,
+  isOrderPending,
 
-///// elminar producto por id usuario
+  editOrderIdByUser
+); // [S]
 
 /**
  * @swagger
- * /users/{idUser}/pedidos/{idPedido}:
+ * /users/{idUser}/orders/{idOrder}/product/{idProduct}:
  *  delete:
  *    tags:
- *      - Pedidos USER
- *    summary: Elimnar producto de pedido
- *    description: Eliminar producto de pedido
+ *      - Orders USER
+ *    summary: Delete order by user , quantity_product if the user is online and order is pending
+ *    description: Delete order by user , quantity_product if the user is online and order is pending
  *    parameters:
  *    - name : x-auth-token
  *      value : Authorization token
@@ -217,18 +264,18 @@ router.put(
  *      dataType : string
  *      in : header
  *    - name: idUser
- *      description: Id del user
+ *      description: idUser
  *      in: path
  *      required: true
  *      type: integer
- *    - name: idPedido
- *      description: idPedido del pedido para editar, si se encuentra "Pendiente"
+ *    - name: idOrder
+ *      description: idOrder
  *      in: path
  *      required: true
  *      type: integer
- *    - name: idProducto
- *      description: idProducto del pedido para eliminar, si se encuentra "Pendiente"
- *      in: formData
+ *    - name: idProduct
+ *      description: idProduct
+ *      in: path
  *      required: true
  *      type: integer
  *    responses:
@@ -237,12 +284,7 @@ router.put(
  */
 
 router.delete(
-  "/users/:idUser/pedidos/:idPedido",
-  // midValidarExistenciaDeUsuario,
-  // midValidarEstadoOnLine,
-  // midValidarExistenciadeIDPEDIDO,
-  // midValidarEstadoPedido,
-  // midValidarPedidoExista,
+  "/users/:idUser/order/:idOrder/product/:idProduct",
   eliminarPedidosIdUser
 ); // [S]
 

@@ -13,6 +13,7 @@ const usersRoutes = require("./routes/users.routes");
 const ordersRoutes = require("./routes/orders.routes");
 const paymentMethods = require("./routes/paymentMethods.routes");
 const authRoutes = require("./routes/auth.routes");
+const addressRoutes = require("./routes/adress.routes");
 
 // ********************* SWAGGER ************
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -31,6 +32,7 @@ const swaggerOptions = {
     "./routes/products.routes.js",
     "./routes/orders.routes.js",
     "./routes/paymentMethods.routes.js",
+    "./routes/adress.routes.js",
   ],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -54,6 +56,8 @@ app.use("/", usersRoutes);
 app.use("/", ordersRoutes);
 //********************************************* PAYMENT METHODS **********************
 app.use("/", paymentMethods);
+//********************************************* ADDRESS **********************
+app.use("/", addressRoutes);
 
 app.listen(port, () => {
   console.log(`Server listening on port http://localhost:${port}`);

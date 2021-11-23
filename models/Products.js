@@ -15,9 +15,9 @@ const ProductsDB = sequelize.define(
     price_product: {
       type: Sequelize.INTEGER,
     },
-    quantity_product: {
-      type: Sequelize.INTEGER,
-    },
+    // quantity_product: {
+    //   type: Sequelize.INTEGER,
+    // },
   },
   {
     timestamps: false,
