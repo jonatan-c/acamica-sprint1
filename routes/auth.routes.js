@@ -100,5 +100,25 @@ router.put(
   userDiscontinued
 );
 
+/**
+ * @swagger
+ * /auth:
+ *  get:
+ *    tags:
+ *      - Login - Auth
+ *    summary: The Admin can see every payment methods in the database.
+ *    description: Admin can see every
+ *    parameters:
+ *    - name : x-auth-token
+ *      value : Authorization token
+ *      required : true
+ *      dataType : string
+ *      in : header
+ *    responses:
+ *      200:
+ *        description: Success
+ */
+
 router.get("/auth", auth, usuarioAutenticado);
+
 module.exports = router;

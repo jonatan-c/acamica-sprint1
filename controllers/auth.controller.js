@@ -36,7 +36,7 @@ authCtrl.autenticarUsuario = async (req, res) => {
         if (error) throw error;
 
         //Mensaje de confirmacion
-        res.json(token);
+        res.json({ token, payload });
       }
     );
   } catch (error) {
@@ -46,22 +46,11 @@ authCtrl.autenticarUsuario = async (req, res) => {
 
 // obtiene que usuario esta autenticado
 authCtrl.usuarioAutenticado = async (req, res) => {
-  const result = await usersDB.findAll({
-    include: ["address"],
+  const usuario = await usersDB.findOne({
+    where: { id_user: req.decoded.id_user },
+    attributes: { exclude: ["password1", "state"] },
   });
-  res.json(result);
-
-  // try {
-  //   // aca falta la menera que muestre todos los datos, menos el de password
-  //   const usuario = await usersDB.findOne({
-  //     where: { email: req.body.email },
-  //   });
-  //   res.json({ message: "Login successfully, you can buy! ", usuario });
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(500).json({ msg: "Hubo un error" });
-  // }
-  console.log("paso midle");
+  res.json(usuario);
 };
 
 authCtrl.userDiscontinued = async (req, res) => {
