@@ -27,12 +27,13 @@ const swaggerOptions = {
     },
   },
   apis: [
-    "./routes/users.routes.js",
-    "./routes/auth.routes.js",
-    "./routes/products.routes.js",
-    "./routes/orders.routes.js",
-    "./routes/paymentMethods.routes.js",
-    "./routes/adress.routes.js",
+    "./src/routes/users.routes.js",
+    "./src/routes/auth.routes.js",
+    "./src/routes/products.routes.js",
+    "./src/routes/orders.routes.js",
+    "./src/routes/paymentMethods.routes.js",
+    "./src/routes/adress.routes.js",
+    // "./src/routes/*.routes.js",
   ],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
