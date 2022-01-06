@@ -28,12 +28,23 @@ Crea el archivo .env en la carpeta principal e ingresa los siguientes datos:
 
 ```
 
+//SERVER
+PORT_SERVER=4000
+
+//JWT
+SECRETA=secreta
+
+//DB
 MYSQL_DB_NAME=persistencia_sprint2
-MYSQL_USER="tu usuario"
-MYSQL_PASS="tu password"
+MYSQL_USER="ingrese su usuario"
+MYSQL_PASS="ingrese su contraseña"
 MYSQL_HOST=localhost
 MYSQL_PORT=3306
-SECRETA=SECRETA
+
+//REDIS
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
 
 ```
 

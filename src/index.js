@@ -1,6 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
-const port = 4001;
+const port = process.env.PORT_SERVER;
 const helmet = require("helmet");
 
 const db = require("./models/Asociaciones");
