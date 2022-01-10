@@ -2,7 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT_SERVER || 4000;
-const helmet = require("helmet");
+
+const cors = require("cors");
+app.use(cors());
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models/Asociaciones");
 db.sequelize.sync({ alter: true }).then(() => {
@@ -40,13 +45,9 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
-const cors = require("cors");
-app.use(cors());
+
+const helmet = require("helmet");
 app.use(helmet());
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 //routes
 
 app.use("/", authRoutes);
