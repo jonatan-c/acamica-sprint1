@@ -1,11 +1,7 @@
 require("dotenv").config();
 
 const PaymentMethodsDB = require("../models/PaymentMethods");
-const redis = require("redis");
-const client = redis.createClient({
-  host: "localhost",
-  port: 6379,
-});
+
 const paymentMethodsCtrl = {};
 //************************************* [N]
 paymentMethodsCtrl.addPaymentMethod = async (req, res, next) => {

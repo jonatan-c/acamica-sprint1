@@ -2,7 +2,10 @@ require("dotenv").config();
 
 const ProductsDB = require("../models/Products");
 const redis = require("redis");
-const client = redis.createClient();
+const client = redis.createClient({
+  host: process.env.REDIS_HOST,
+  port: 6379,
+});
 
 const productsCtrl = {};
 
