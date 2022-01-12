@@ -1,4 +1,78 @@
-## Acamica-Backend-Sprint-Project-02
+## BACKEND DE UNA APLICACION DE PEDIDOS DE UN RESTAURANTE
+
+Esta aplicacion es parte de un curso de Desarrollo Web BackEnd en Acamica.
+
+Se dividio en 3 partes para que todos lo entiendan de una manera mas clara ya que es el backend y no cuenta con algo visual para el usuario.
+
+<details>
+<summary>1. Informacion General</summary>
+<br>
+En el desarrollo de esta aplicacion se utilizo metodologia Scrum.
+
+<h4>Backlog</h4>
+<details>
+<summary>Sprint 1</summary>
+
+![ ](images-readme/sprint-1-1.png)
+
+![ ](images-readme/sprint-1-2.png)
+
+![ ](images-readme/sprint-1-3.png)
+
+</details>
+<details>
+<summary>Sprint 2</summary>
+
+![ ](images-readme/sprint-2-1.png)
+
+![ ](images-readme/sprint-2-2.png)
+
+</details>
+<details>
+<summary>Sprint 3</summary>
+
+[Trello del Sprint 3](https://trello.com/b/iqSzLTJf/sprint-3)
+
+![ ](images-readme/sprint-3-1.png)
+
+![ ](images-readme/sprint-3-2.png)
+
+</details>
+<details>
+<summary>Sprint 4</summary>
+En desarrollo
+</details>
+
+</details>
+
+<details>
+<summary>2. Explicacion para no desarrolladores</summary>
+
+Puede que sepas o no, pero el backend envia un archivo al fronten llamado JSON, se ve algo asi:
+
+imagen json
+
+Por lo tanto el frontend debe de tomar ese archivo y pintarlo en pantalla.
+
+Te preguntaras: ¿Puedo probar el backend? Si, este backend tiene documentacion, para simplificarlo, le permite al frontend que tiene que poner el cliente y comprobar que pasa si por ejemplo pone numeros en lugar de letras
+
+Esto lo hice con una herramienta llamada swagger, que me permite documentarlo
+
+![ ](images-readme/swagger.png)
+
+Cuando ingreses veras algo asi :
+
+imagen
+
+No te preocupes, te guiare en un par de comprobaciones
+
+Primero que nada Ve al punto 1 y completa 2 con tu nombre , 3 con tu email y 4 con tu password.
+
+</details>
+
+<details>
+
+<summary>3. EXPLICACION PARA DESARROLLADORES</summary>
 
 ### API para app de un restaurante.
 
@@ -80,3 +154,5 @@ Para correr test
 npm run test
 
 ```
+
+</details>
