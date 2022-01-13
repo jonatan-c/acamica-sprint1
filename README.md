@@ -57,16 +57,11 @@ Por lo tanto el frontend debe de tomar ese archivo y pintarlo en pantalla.
 Te preguntaras: ¿Puedo probar el backend? Si, este backend tiene documentacion, para simplificarlo, le permite al frontend que tiene que poner el cliente y comprobar que pasa si por ejemplo pone numeros en lugar de letras
 
 Esto lo hice con una herramienta llamada swagger, que me permite documentarlo
+Cuando ingreses veras algo asi :
 
 ![ ](images-readme/swagger.png)
 
-Cuando ingreses veras algo asi :
-
-imagen
-
 No te preocupes, te guiare en un par de comprobaciones
-
-Primero que nada Ve al punto 1 y completa 2 con tu nombre , 3 con tu email y 4 con tu password.
 
 </details>
 
