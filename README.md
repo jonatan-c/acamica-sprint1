@@ -59,9 +59,16 @@ Te preguntaras: ¿Puedo probar el backend? Si, este backend tiene documentacion,
 Esto lo hice con una herramienta llamada swagger, que me permite documentarlo
 Cuando ingreses veras algo asi :
 
+<details>
+<summary>Imagen de muestra de Swagger</summary>
+
 ![ ](images-readme/swagger.png)
 
+</details>
+
 No te preocupes, te guiare en un par de comprobaciones
+
+[Link del backend](https://www.restaurantedelilahbackend.tk/api-docs/)
 
 </details>
 
