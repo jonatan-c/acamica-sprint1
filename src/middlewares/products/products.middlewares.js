@@ -7,7 +7,9 @@ async function hasProductsDB(req, res, next) {
   if (result) {
     next();
   } else {
-    return res.json({ message: "There are no products in the database" });
+    return res
+      .status(404)
+      .json({ message: "There are no products in the database" });
   }
 }
 
@@ -19,7 +21,7 @@ async function isIdProductInDb(req, res, next) {
   if (result) {
     next();
   } else {
-    return res.json({ message: "This product does not exist" });
+    return res.status(404).json({ message: "This product does not exist" });
   }
 }
 

@@ -9,7 +9,7 @@ function validar_ID(req, res, next) {
       next();
     }
   } else {
-    return res.status(500).json({ mensaje: "No estas registrado y/o Logeado" });
+    return res.status(403).json({ mensaje: "No estas registrado y/o Logeado" });
   }
 }
 module.exports = validar_ID;

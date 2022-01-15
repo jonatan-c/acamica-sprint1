@@ -11,7 +11,7 @@ async function isOrderPending(req, res, next) {
   if (result) {
     next();
   } else {
-    return res.status(500).json({ mensaje: "The order is not pending." });
+    return res.status(200).json({ mensaje: "The order is not pending." });
   }
 }
 
@@ -26,7 +26,7 @@ async function isOrderInDB(req, res, next) {
     next();
   } else {
     return res
-      .status(500)
+      .status(404)
       .json({ mensaje: "The order is not in the database." });
   }
 }
@@ -41,7 +41,7 @@ async function isOrderInDBparams(req, res, next) {
     next();
   } else {
     return res
-      .status(500)
+      .status(404)
       .json({ mensaje: "The order is not in the database." });
   }
 }
@@ -56,7 +56,7 @@ async function isOrderProductInDBparams(req, res, next) {
   if (result) {
     next();
   } else {
-    return res.status(500).json({ mensaje: "The product is not in Order." });
+    return res.status(404).json({ mensaje: "The product is not in Order." });
   }
 }
 

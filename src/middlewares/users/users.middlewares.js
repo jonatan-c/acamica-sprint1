@@ -5,7 +5,7 @@ const usersDB = require("../../models/Users");
 async function isEmailValid(req, res, next) {
   const userEmail = await usersDB.findOne({ where: { email: req.body.email } });
   if (userEmail) {
-    return res.status(500).json({ mensaje: "The email is already in use." });
+    return res.status(200).json({ mensaje: "The email is already in use." });
   } else {
     next();
   }
@@ -21,7 +21,7 @@ async function isUserOnline(req, res, next) {
   if (estado) {
     next();
   } else {
-    return res.status(500).json({ mensaje: "The user isn´t ONLINE" });
+    return res.status(200).json({ mensaje: "The user is not ONLINE" });
   }
 }
 
@@ -35,7 +35,7 @@ async function existIdUser(req, res, next) {
   if (user) {
     next();
   } else {
-    return res.status(500).json({ mensaje: "The user doesn´t exist" });
+    return res.status(404).json({ mensaje: "The user does not  exist" });
   }
 }
 
@@ -45,7 +45,7 @@ async function isUserSuspendido(req, res, next) {
   });
   if (email) {
     return res
-      .status(500)
+      .status(403)
       .json({ mensaje: "The user is discontinued, you can not login" });
   } else {
     next();
@@ -57,7 +57,7 @@ async function isEmailInDB(req, res, next) {
   if (email) {
     next();
   } else {
-    return res.status(500).json({ mensaje: "The email doesn´t exist" });
+    return res.status(404).json({ mensaje: "The email does not exist" });
   }
 }
 

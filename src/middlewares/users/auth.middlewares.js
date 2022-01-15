@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.SECRETA, (err, decoded) => {
       if (err) {
-        return res.json({ mensaje: "Token inválida" });
+        return res.status(403).json({ mensaje: "Token inválida" });
       } else {
         req.decoded = decoded;
         console.log(req.decoded);
@@ -16,7 +16,7 @@ const auth = (req, res, next) => {
       }
     });
   } else {
-    res.send({
+    res.status(403).send({
       mensaje: "Token no proveída.",
     });
   }
@@ -30,20 +30,20 @@ const isAdmin = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.SECRETA, (err, decoded) => {
       if (err) {
-        return res.json({ mensaje: "Token inválida" });
+        return res.status(403).json({ mensaje: "Token inválida" });
       } else {
         req.decoded = decoded;
         if (req.decoded.role == "admin") {
           next();
         } else {
-          return res.json({
+          return res.status(403).json({
             msg: "You are not ADMIN",
           });
         }
       }
     });
   } else {
-    res.send({
+    res.status(403).send({
       mensaje: "Token no proveída.",
     });
   }
@@ -70,7 +70,7 @@ const isAuthIdUserParams = (req, res, next) => {
       }
     });
   } else {
-    res.send({
+    res.status(403).send({
       mensaje: "Token no proveída.",
     });
   }
@@ -84,20 +84,20 @@ const isAuthIdAdminUserParams = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.SECRETA, (err, decoded) => {
       if (err) {
-        return res.json({ mensaje: "Token inválida" });
+        return res.status(403).json({ mensaje: "Token inválida" });
       } else {
         req.decoded = decoded;
         if (req.decoded.id_user == req.params.idAdminUser) {
           next();
         } else {
-          return res.json({
+          return res.status(403).json({
             msg: "You are not the user login",
           });
         }
       }
     });
   } else {
-    res.send({
+    res.status(403).send({
       mensaje: "Token no proveída.",
     });
   }

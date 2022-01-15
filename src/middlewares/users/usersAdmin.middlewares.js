@@ -12,7 +12,7 @@ async function adminIdExist(req, res, next) {
   if (estado) {
     next();
   } else {
-    return res.status(500).json({ message: "ID User doesn´t exist" });
+    return res.status(404).json({ message: "ID User does not exist" });
   }
 }
 
@@ -27,7 +27,7 @@ async function isAdminRole(req, res, next) {
   if (estado) {
     next();
   } else {
-    return res.status(500).json({ mensaje: "The user doesn´t ADMIN" });
+    return res.status(403).json({ mensaje: "The user does not ADMIN" });
   }
 }
 
@@ -42,7 +42,7 @@ async function isAdminOnline(req, res, next) {
   if (estado) {
     next();
   } else {
-    return res.status(500).json({ mensaje: "The admin isn´t ONLINE" });
+    return res.status(403).json({ mensaje: "The admin is not ONLINE" });
   }
 }
 
