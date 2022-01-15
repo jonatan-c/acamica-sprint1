@@ -9,67 +9,90 @@ const client = redis.createClient({
 
 const productsCtrl = {};
 
-//*************************************** [SIN USAR]
+//***************************************
 productsCtrl.getProducts = async (req, res, next) => {
-  const allProducts = await ProductsDB.findAll();
-  client.set(
-    "products",
-    JSON.stringify(allProducts),
-    "EX",
-    10 * 60 * 60,
-    (err) => {
-      if (err) {
-        console.log(err);
+  try {
+    const allProducts = await ProductsDB.findAll();
+    client.set(
+      "products",
+      JSON.stringify(allProducts),
+      "EX",
+      10 * 60 * 60,
+      (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ message: "Error to get all products" });
+        }
       }
-    }
-  );
-  res.json(allProducts);
+    );
+    res.status(200).json(allProducts);
+  } catch (error) {
+    res.status(500).json({ message: "Error to get all products" });
+  }
 };
 //******************************************** [F]
 productsCtrl.addProduct = async (req, res, next) => {
-  const newProduct = await ProductsDB.build({
-    name_product: req.body.name_product,
-    price_product: parseInt(req.body.price_product),
-  });
-  const result = await newProduct.save();
-  res.json({ mensaje: "Product added successfully, thanks admin" });
+  try {
+    const newProduct = await ProductsDB.build({
+      name_product: req.body.name_product,
+      price_product: parseInt(req.body.price_product),
+    });
+    const result = await newProduct.save();
+    res
+      .status(200)
+      .json({ mensaje: "Product added successfully, thanks admin" });
+  } catch (error) {
+    res.status(500).json({ message: "Error in adding new product" });
+  }
 };
 
 productsCtrl.getProductbyId = async (req, res, next) => {
-  const getIdProduct = parseInt(req.params.idProduct);
-  const result = await ProductsDB.findOne({
-    where: { id_product: getIdProduct },
-  });
-  res.json({ result });
+  try {
+    const getIdProduct = parseInt(req.params.idProduct);
+    const result = await ProductsDB.findOne({
+      where: { id_product: getIdProduct },
+    });
+    res.status(200).json({ result });
+  } catch (error) {
+    res.status(500).json({ message: "Error to get product" });
+  }
 };
 
 //******************************************** [H]
 productsCtrl.deleteProductbyId = async (req, res, next) => {
-  const getIdProduct = parseInt(req.params.idProduct);
-  const result = await ProductsDB.destroy({
-    where: { id_product: getIdProduct },
-  });
-  if (result) {
-    res.json({ message: "Product  deleted successfully" });
-  } else {
-    res.status(404).json({ message: "Product doesn't found in database" });
+  try {
+    const getIdProduct = parseInt(req.params.idProduct);
+    const result = await ProductsDB.destroy({
+      where: { id_product: getIdProduct },
+    });
+    if (result) {
+      res.status(200).json({ message: "Product  deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Product doesn't found in database" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error to delete product" });
   }
 };
 
 //******************************************** [G]
 productsCtrl.editProduct = async (req, res, next) => {
-  const getIdProduct = parseInt(req.params.idProduct);
-  const result = await ProductsDB.update(
-    {
-      name_product: req.body.name_product,
-      price_product: parseInt(req.body.price_product),
-    },
-    { where: { id_product: getIdProduct } }
-  );
-  if (result) {
-    res.json({ message: "Product edited successfully" });
-  } else {
-    res.status(404).json({ message: "Product doesn't found in database" });
+  try {
+    const getIdProduct = parseInt(req.params.idProduct);
+    const result = await ProductsDB.update(
+      {
+        name_product: req.body.name_product,
+        price_product: parseInt(req.body.price_product),
+      },
+      { where: { id_product: getIdProduct } }
+    );
+    if (result) {
+      res.status(200).json({ message: "Product edited successfully" });
+    } else {
+      res.status(404).json({ message: "Product doesn't found in database" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error in editing product" });
   }
 };
 
