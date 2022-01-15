@@ -2,7 +2,7 @@
 
 Esta aplicacion es parte de un curso de Desarrollo Web BackEnd en Acamica.
 
-Se dividio en 3 partes para que todos lo entiendan de una manera mas clara ya que es el backend y no cuenta con algo visual para el usuario.
+Se dividio en 3 partes para que todos lo entiendan de una manera mas clara ya que es el backend y no cuenta con interfas de usuario.
 
 <details>
 <summary>1. Informacion General</summary>
@@ -50,7 +50,7 @@ En desarrollo
 
 Puede que sepas o no, pero el backend envia un archivo al fronten llamado JSON, se ve algo asi:
 
-imagen json
+![ ](images-readme/swagger.png)
 
 Por lo tanto el frontend debe de tomar ese archivo y pintarlo en pantalla.
 
@@ -65,8 +65,6 @@ Cuando ingreses veras algo asi :
 ![ ](images-readme/swagger.png)
 
 </details>
-
-No te preocupes, te guiare en un par de comprobaciones
 
 [Link del backend](https://www.restaurantedelilahbackend.tk/api-docs/)
 
@@ -145,7 +143,7 @@ Documentancion Swagger
 
 ```
 
-http://localhost:4001/api-docs
+http://localhost:4000/api-docs
 
 ```
 
@@ -156,5 +154,9 @@ Para correr test
 npm run test
 
 ```
+
+Alojamiento en Awazon Web Services
+
+![ ](images-readme/restaurante-api-amazon-web-services.png)
 
 </details>

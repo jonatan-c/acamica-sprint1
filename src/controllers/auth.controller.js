@@ -36,21 +36,26 @@ authCtrl.autenticarUsuario = async (req, res) => {
         if (error) throw error;
 
         //Mensaje de confirmacion
-        res.json({ token, payload });
+        res.status(200).json({ token, payload });
       }
     );
   } catch (error) {
     console.log(error);
+    res.status(500).json({ msg: "Error al autenticar el usuario" });
   }
 };
 
 // obtiene que usuario esta autenticado
 authCtrl.usuarioAutenticado = async (req, res) => {
-  const usuario = await usersDB.findOne({
-    where: { id_user: req.decoded.id_user },
-    attributes: { exclude: ["password1", "state"] },
-  });
-  res.json(usuario);
+  try {
+    const usuario = await usersDB.findOne({
+      where: { id_user: req.decoded.id_user },
+      attributes: { exclude: ["password1", "state"] },
+    });
+    res.status(200).json(usuario);
+  } catch (error) {
+    res.status(500).json({ msg: "Error al obtener el usuario" });
+  }
 };
 
 authCtrl.userDiscontinued = async (req, res) => {
@@ -61,9 +66,10 @@ authCtrl.userDiscontinued = async (req, res) => {
       },
       { where: { id_user: req.body.id_user } }
     );
-    res.json({ message: "The user is discontinued" });
+    res.status(200).json({ message: "The user is discontinued" });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Error discontinuing user" });
   }
 };
 
