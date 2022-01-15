@@ -5,11 +5,15 @@ const PaymentMethodsDB = require("../models/PaymentMethods");
 const paymentMethodsCtrl = {};
 //************************************* [N]
 paymentMethodsCtrl.addPaymentMethod = async (req, res, next) => {
-  const newPM = await PaymentMethodsDB.build({
-    name: req.body.name,
-  });
-  const result = await newPM.save();
-  res.json({ message: "New payment method added successfully" });
+  try {
+    const newPM = await PaymentMethodsDB.build({
+      name: req.body.name,
+    });
+    const result = await newPM.save();
+    res.status(200).json({ message: "New payment method added successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error in adding new payment method" });
+  }
 };
 //********s***************************** [O]
 paymentMethodsCtrl.editPaymentMethod = async (req, res, next) => {
@@ -21,9 +25,10 @@ paymentMethodsCtrl.editPaymentMethod = async (req, res, next) => {
       },
       { where: { id_payment_method: idPaymentMethod } }
     );
-    res.json({ message: "Payment method edited successfully" });
+    res.status(200).json({ message: "Payment method edited successfully" });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Error in editing payment method" });
   }
 };
 
@@ -35,7 +40,7 @@ paymentMethodsCtrl.deletePaymentMethod = async (req, res, next) => {
       where: { id_payment_method: getIdPaymentMethod },
     });
     if (result) {
-      res.json({ message: "Payment method deleted successfully" });
+      res.status(200).json({ message: "Payment method deleted successfully" });
     } else {
       res
         .status(404)
@@ -43,34 +48,19 @@ paymentMethodsCtrl.deletePaymentMethod = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Error in deleting payment method" });
   }
 };
 
 //************************************** [Q]
 paymentMethodsCtrl.getIdPaymentMethods = async (req, res, next) => {
-  // client.get("paymentMethods", async (error, rep) => {
-  //   if (error) {
-  //     return res.json(error);
-  //   }
-  //   if (rep) {
-  //     return res.json(JSON.parse(rep));
-  //   }
-  // });
+  try {
+    const paymentMethods = await PaymentMethodsDB.findAll();
 
-  const paymentMethods = await PaymentMethodsDB.findAll();
-  // client.set(
-  //   "paymentMethods",
-  //   JSON.stringify(paymentMethods),
-  //   "EX",
-  //   10 * 60 * 60,
-  //   (error, rep) => {
-  //     if (error) {
-  //       return res.json(error);
-  //     }
-  //     console.log(rep);
-  //   }
-  // );
-  res.json(paymentMethods);
+    res.status(200).json(paymentMethods);
+  } catch (error) {
+    res.status(500).json({ message: "Error in getting payment methods" });
+  }
 };
 
 module.exports = paymentMethodsCtrl;
