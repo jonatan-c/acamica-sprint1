@@ -11,7 +11,7 @@ async function isIdAddressinDB(req, res, next) {
   });
   if (!body) {
     return res
-      .status(500)
+      .status(404)
       .json({ message: "The address is not in the database" });
   }
   next();
@@ -25,7 +25,7 @@ async function isIdAddressinDBParams(req, res, next) {
   });
   if (!body) {
     return res
-      .status(500)
+      .status(404)
       .json({ message: "The address is not in the database" });
   }
   next();
