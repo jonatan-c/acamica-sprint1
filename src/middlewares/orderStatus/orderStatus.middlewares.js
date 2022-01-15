@@ -10,7 +10,7 @@ async function isIdOrderStatusinDB(req, res, next) {
   });
   if (!body) {
     return res
-      .status(500)
+      .status(404)
       .json({ message: "The order status is not in the database" });
   }
   next();

@@ -20,7 +20,7 @@ const productsCache = async (req, res, next) => {
     next();
   } else {
     console.log("The Products are in cache");
-    res.json(JSON.parse(productsOnCache));
+    res.status(200).json(JSON.parse(productsOnCache));
   }
 };
 

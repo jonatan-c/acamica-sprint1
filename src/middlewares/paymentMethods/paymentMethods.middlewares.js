@@ -11,7 +11,7 @@ async function isPaymentMethodInDB(req, res, next) {
   });
   if (estado) {
     return res
-      .status(500)
+      .status(200)
       .json({ message: "The payment method is already in the database" });
   } else {
     next();
@@ -28,7 +28,7 @@ async function isIdinDB(req, res, next) {
   if (estado) {
     next();
   } else {
-    return res.json({ message: "The payment method isn´t in DB" });
+    return res.status(404).json({ message: "The payment method is not in DB" });
   }
 }
 
@@ -42,7 +42,7 @@ async function isIdinDBPM(req, res, next) {
   if (estado) {
     next();
   } else {
-    return res.json({ message: "The payment method isn´t in DB" });
+    return res.status(404).json({ message: "The payment method is not in DB" });
   }
 }
 
