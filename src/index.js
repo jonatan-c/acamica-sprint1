@@ -46,7 +46,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).send("Hello API Restaurant Delilah");
 });
 

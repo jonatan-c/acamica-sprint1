@@ -68,13 +68,15 @@ Cuando ingreses veras algo asi :
 
 [Link del backend](https://www.restaurantedelilahbackend.tk/api-docs/)
 
+Hare un video para explicar el funcionamiento de algunas rutas para que luegas luego puedas probarlo si deseas.
+
 </details>
 
 <details>
 
 <summary>3. EXPLICACION PARA DESARROLLADORES</summary>
 
-### API para app de un restaurante.
+### API RESTFULL para app de un restaurante.
 
 ### Instrucciones de instalación
 
