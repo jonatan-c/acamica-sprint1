@@ -35,7 +35,7 @@ const {
  *    description: Admin can see every
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -70,7 +70,7 @@ router.get(
  *    description: The admin can add news payments methods
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -110,7 +110,7 @@ router.post(
  *    description: Edita un medio de pago
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -155,7 +155,7 @@ router.put(
  *    description: if user is admin, can delete a payment method
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header

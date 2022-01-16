@@ -52,7 +52,7 @@ router.get("/products", productsCache, getProducts);
  *    description: add a new product to the store if the user is an admin
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -97,7 +97,7 @@ router.post(
  *    description: edit a product if the user is an admin and the product exists
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -149,7 +149,7 @@ router.put(
  *    description: delete a product if the user is an admin and the product exists
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header

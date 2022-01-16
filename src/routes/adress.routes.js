@@ -27,7 +27,7 @@ const {
  *    description: Get all address of user
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -53,7 +53,7 @@ router.get("/users/:idUser/address", auth, isAuthIdUserParams, getAddress);
  *    description: Add address of user
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -88,7 +88,7 @@ router.post("/users/:idUser/address", auth, isAuthIdUserParams, addAddress);
  *    description: Edit address of user
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -134,7 +134,7 @@ router.put(
  *    description: Delete address of user
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header

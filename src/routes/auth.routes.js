@@ -33,7 +33,7 @@ const {
  *    description: You can login a user
  *    parameters:
  *    - name: email
- *      value : correo@correo.com
+ *      value :
  *      description:  Email of the user
  *      in: formData
  *      required: true
@@ -63,7 +63,7 @@ router.post("/auth", isEmailInDB, isUserSuspendido, autenticarUsuario);
  *    description:
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -110,7 +110,7 @@ router.put(
  *    description: Admin can see every
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header

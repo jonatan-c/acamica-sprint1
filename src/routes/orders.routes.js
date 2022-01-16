@@ -62,7 +62,7 @@ const {
  *    description: List of products if the user is online
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -94,7 +94,7 @@ router.get(
  *    description: Create order if the user is online
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -143,7 +143,7 @@ router.post(
  *    description: Add products to order if the user is online
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -192,7 +192,7 @@ router.post(
  *    description: List of orders by user if the user is online
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -218,7 +218,7 @@ router.get("/users/:idUser/orders", auth, isAuthIdUserParams, getOrderByIdUser);
  *    description: Edit order by user , quantity_product if the user is online and order is pending
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -267,7 +267,7 @@ router.put(
  *    description: Delete order by user , quantity_product if the user is online and order is pending
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -315,7 +315,7 @@ router.delete(
  *    description: The admin can see every the orders
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
@@ -348,7 +348,7 @@ router.get(
  *    description: The admin can edit the order if order status is pending
  *    parameters:
  *    - name : x-auth-token
- *      value : Authorization token
+ *      value :
  *      required : true
  *      dataType : string
  *      in : header
