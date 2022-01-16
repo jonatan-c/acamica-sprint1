@@ -39,7 +39,7 @@ const {
  *      required: true
  *      type: string
  *    - name: password1
- *      value : correo
+ *      value :
  *      description: password of the user
  *      in: formData
  *      required: true

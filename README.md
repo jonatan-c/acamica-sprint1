@@ -128,8 +128,8 @@ Por defecto ya viene cargados algunos datos en la base de datos
 
 ```
 
-Usuario 1 - Admin - Online --> name: admin , password: admin
-Usuario 2 - User - Online --> name:user , password: user
+Usuario - Admin - Online --> id: 7 , name: admin , password: admin , email: admin@gmail.com
+Usuario 2 - User - Online -->id: 8, name:user , password: user , email : user@gmail.com
 
 ```
 
@@ -156,6 +156,10 @@ Para correr test
 npm run test
 
 ```
+
+Diagrama entidad relacion
+
+![ ](images-readme/diagrama-restaurante.png)
 
 Alojamiento en Awazon Web Services
 
