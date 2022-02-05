@@ -11,7 +11,7 @@ authCtrl.autenticarUsuario = async (req, res) => {
     let usuario = await usersDB.findOne({ where: { email: email } });
     const passCorrecto = await bcryptjs.compare(password1, usuario.password1);
     if (!passCorrecto) {
-      return res.status(404).json({ msg: "Password Incorrecto" });
+      return res.status(400).json({ msg: "Password Incorrecto" });
     }
     const payload = {
       id_user: usuario.id_user,
@@ -41,7 +41,7 @@ authCtrl.autenticarUsuario = async (req, res) => {
     );
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Error al autenticar el usuario" });
+    res.status(500).json({ msg: "Error al autenticar usuario" });
   }
 };
 

@@ -1,10 +1,11 @@
 const { Router } = require("express");
 const router = Router();
 
-//*****************middlewares */
-
-const { isEmailValid } = require("../middlewares/users/users.middlewares");
-// const midValidarLogin = require("../middlewares/users/midValidarLogin");
+const {
+  isEmailValid,
+  isEmail,
+  isPasswordValid,
+} = require("../middlewares/users/users.middlewares");
 
 const {
   createUser,
@@ -13,7 +14,16 @@ const {
   actualizarUsuario,
 } = require("../controllers/users.controller");
 
-//********************** [A] y [L]
+router.post(
+  "/users/register",
+  isEmailValid,
+  isEmail,
+  isPasswordValid,
+  createUser
+);
+
+module.exports = router;
+
 /**
  * @swagger
  * /users/register:
@@ -56,7 +66,3 @@ const {
  *        description: A user with the specified ID was not found
  *
  */
-
-router.post("/users/register", isEmailValid, createUser); // [A] y [L]
-
-module.exports = router;

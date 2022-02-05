@@ -68,4 +68,5 @@ app.use("/", addressRoutes);
 
 app.listen(port, () => {
   console.log(`Server listening on port http://localhost:${port}`);
+  console.log(`Documentation in http://localhost:${port}/api-docs`);
 });
